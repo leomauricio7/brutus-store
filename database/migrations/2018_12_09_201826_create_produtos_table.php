@@ -23,8 +23,8 @@ class CreateProdutosTable extends Migration
             $table->decimal('comprimento', 5, 2);
             $table->enum('status', ['Ativo','Inativo']);
             $table->integer('quantidade');
-            $table->integer('categoria_id')->unsigned();
-            $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete();
+            //$table->integer('categoria_id')->unsigned();
+            //$table->foreign('categoria_id')->references('id')->on('categorias')->onDelete();
             $table->timestamps();
         });
     }
