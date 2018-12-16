@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Produto;
 
 class ProdutoController extends Controller
 {
@@ -12,9 +13,10 @@ class ProdutoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Produto $produto)
     {
-        //
+        $produtos = $produto->all();
+        return view('admin.produtos.index', compact('produtos'));
     }
 
     /**
@@ -24,7 +26,7 @@ class ProdutoController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.produtos.create');
     }
 
     /**

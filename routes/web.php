@@ -15,7 +15,21 @@ Route::group(['namespace' => 'Site'], function(){
 });
 
 Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware'=>'auth'], function(){
-    Route::get('/dashboard', 'AdminController@index')->name('dashboard');
+    //home
+    Route::get('/dashboard', 'AdminController@index')->name('admin.home');
+    //produtos
+    Route::get('/produtos', 'ProdutoController@index')->name('admin.produtos');
+    Route::get('/produtos/create', 'ProdutoController@create')->name('admin.produtos.create');
+    //pedidos
+    Route::get('/pedidos', 'PedidoController@index')->name('admin.pedidos');
+    //categorias
+    Route::get('/categorias', 'CategoriaController@index')->name('admin.categorias');
+    Route::get('/categorias/create', 'CategoriaController@create')->name('admin.categorias.create');
+    Route::post('/categorias/create', 'CategoriaController@store')->name('admin.categorias.store');
+    Route::get('/categorias/delete/{id}', 'CategoriaController@destroy')->name('admin.categorias.destroy');
+    //cupons
+    Route::get('/cupons', 'CupomController@index')->name('admin.cupons');
+    Route::get('/cupons/create', 'CupomController@create')->name('admin.cupons.create');
 });
 
 /************** EXEMPLOS DE UTILIZAÇÃO DE ROTAS ************************/

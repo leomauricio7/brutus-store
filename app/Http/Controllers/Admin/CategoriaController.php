@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Categoria;
 
 class CategoriaController extends Controller
 {
@@ -12,9 +13,17 @@ class CategoriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    private $categoria;
+
+    public function __construct(Categoria $categoria){
+        $this->categoria = $categoria;
+    }
+
     public function index()
     {
-        //
+        $categorias = $this->categoria::all();
+        return view('admin.categorias.index', compact('categorias'));
     }
 
     /**
@@ -24,7 +33,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categorias.create');
     }
 
     /**
@@ -35,7 +44,18 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //pega todo os dados do formulario -> $request->all();
+        //pegas os campos especificos -> $request->only(['nome','slug']);
+        //pega os campos execeto o que estiver especificado -> $request->except(['_token']);
+        //pega um campo especifico -> $request->input('nome')
+        $dados = $request->except(['_token']);
+        
+        $create = $this->categoria::create($dados);
+        if($create){
+            return redirect()->route('admin.categorias');
+        }else{
+            return redirect()->back();
+        }
     }
 
     /**
@@ -57,7 +77,7 @@ class CategoriaController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -69,7 +89,19 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //->find() || ->where(coluna,valor)
+        $categoria = $this->categoria->find($id);
+        $update = $categoria->update([
+            'nome'=>'',
+            'icon'=>'',
+            'slug'=>''
+        ]);
+        if($update){
+            return;
+        }else{
+            return;
+        }
+        //dd($update);
     }
 
     /**
@@ -80,6 +112,14 @@ class CategoriaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $categorias = $this->categoria::all();
+        //->delete() || destroy(id)
+        $delete = $this->categoria->where('id',$id)->delete();
+        
+        if($delete){
+            return redirect()->route('admin.categorias');
+        }else{
+            return redirect()->back();
+        }
     }
 }
