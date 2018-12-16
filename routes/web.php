@@ -16,7 +16,7 @@ Route::group(['namespace' => 'Site'], function(){
 
 Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware'=>'auth'], function(){
     //home
-    Route::get('/dashboard', 'AdminController@index')->name('admin.home');
+    Route::get('/', 'AdminController@index')->name('admin.home');
     //produtos
     Route::get('/produtos', 'ProdutoController@index')->name('admin.produtos');
     Route::get('/produtos/create', 'ProdutoController@create')->name('admin.produtos.create');
@@ -27,9 +27,13 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware'=>'auth'], fu
     Route::get('/categorias/create', 'CategoriaController@create')->name('admin.categorias.create');
     Route::post('/categorias/create', 'CategoriaController@store')->name('admin.categorias.store');
     Route::get('/categorias/delete/{id}', 'CategoriaController@destroy')->name('admin.categorias.destroy');
+    Route::get('/categorias/{id}/edit', 'CategoriaController@edit')->name('admin.categorias.edit');
+    Route::put('/categorias/update/{id}', 'CategoriaController@update')->name('admin.categorias.update');
     //cupons
     Route::get('/cupons', 'CupomController@index')->name('admin.cupons');
     Route::get('/cupons/create', 'CupomController@create')->name('admin.cupons.create');
+    Route::post('/cupons/create', 'CupomController@store')->name('admin.cupons.store');
+    Route::get('/cupons/delete/{id}', 'CupomController@destroy')->name('admin.cupon.destroy');
 });
 
 /************** EXEMPLOS DE UTILIZAÇÃO DE ROTAS ************************/

@@ -4,6 +4,8 @@
 <blockquote>
       <h5>Cupons Cadastrados</h5>
 </blockquote>
+
+
 <hr>
 <a href="{{ route('admin.cupons.create')}}" class="waves-effect waves-blue btn green"><i class="material-icons left">add_circle</i>Novo Cupom</a>
 <table lass="highlight">
@@ -11,38 +13,22 @@
         <tr>
             <th>ID</th>
             <th>Nome</th>
-            <th>Produto</th>
-            <th>Desconto %</th>
-            <th>Validade</th>
-            <th>Criado em</th>
+            <th>Localizador</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
 
     <tbody>
+    @foreach ($cupons as $cupom)
         <tr>
-            <td>001</td>
-            <td>GHKGHVH887878</td>
-            <td>Canivete</td>
-            <td>6%</td>
-            <td>20/01/2019</td>
-            <td>10/12/2018</td>
+            <td>{{ $cupom->id }}</td>
+            <td>{{ $cupom->nome }}</td>
+            <td>{{ $cupom->localizador }}</td>
+            <td><a class="waves-effect waves-light btn orange"><i class="material-icons">edit</i> Editar</a></td>
+            <td><a href="{{ route('admin.cupon.destroy', $cupom->id) }}" class="waves-effect waves-light btn red"><i class="material-icons">delete</i> Remover</a></td>
         </tr>
-        <tr>
-            <td>001</td>
-            <td>GHKGHVH887878</td>
-            <td>Canivete</td>
-            <td>6%</td>
-            <td>20/01/2019</td>
-            <td>10/12/2018</td>
-        </tr>
-        <tr>
-            <td>001</td>
-            <td>GHKGHVH887878</td>
-            <td>Canivete</td>
-            <td>6%</td>
-            <td>20/01/2019</td>
-            <td>10/12/2018</td>
-        </tr>
+    @endforeach
     </tbody>
     </table>
 @endsection

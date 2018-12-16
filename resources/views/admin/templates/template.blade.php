@@ -1,11 +1,12 @@
 <!DOCTYPE html>
   <html lang="pt-br"> 
     <head>
-        <title>Brutusstore - Dashboard</title>
+        <title>Brutusstore | @yield('title')</title>
         <!--Import Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="{{ url('css/styleAdmin.css') }}"/>
+        <link rel="icon" href="{{ url('img/logo.png') }}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -37,7 +38,7 @@
         </div>
 
         <div class="fixed-action-btn">
-            <a class="btn-floating btn-large blue">
+            <a class="btn-floating btn-large blue tooltipped" data-position="left" data-tooltip="{{ Auth::user()->name }}">
                 <i class="large material-icons">account_circle</i>
             </a>
             <ul>
@@ -53,7 +54,7 @@
             <div class="row">
               <div class="col l6 s12">
                 <h5 class="white-text"><img class="responsive-img" src="{{ url('img/logo.png')}}" alt=""></h5>
-                <p class="grey-text text-lighten-4">Aui vai ficar a descrição do ramo da loja.</p>
+                <p class="grey-text text-lighten-4">Aqui vai ficar a descrição do ramo da loja.</p>
               </div>
               <div class="col l4 offset-l2 s12">
                 <h5 class="white-text">Redes Sociais</h5>
@@ -86,24 +87,15 @@
         </script>
         <script>
             $(document).ready(function(){
-              $('.fixed-action-btn').floatingActionButton();
-            });
-        </script>
-        <script>
-            $(document).ready(function(){
-                $('select').formSelect();
-            });
-        </script>
-        <script>
-            $(document).ready(function(){
                 $('.datepicker').datepicker({
                     'format':'dd/mm/yyyy'
                 });
-            });
-        </script>
-        <script>
-            $(document).ready(function(){
                 $('.tooltipped').tooltip();
+                $('select').formSelect();
+                $('.fixed-action-btn').floatingActionButton();
+                $("#remove").click(function(){
+                    M.Toast.dismissAll();
+                });
             });
         </script>
     </body>

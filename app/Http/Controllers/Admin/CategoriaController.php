@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Categoria;
+use App\Http\Requests\Admin\CategoriaFormRequest;
 
 class CategoriaController extends Controller
 {
@@ -22,8 +23,9 @@ class CategoriaController extends Controller
 
     public function index()
     {
-        $categorias = $this->categoria::all();
-        return view('admin.categorias.index', compact('categorias'));
+        $title = "Categorias";
+        $categorias = $this->categoria::paginate(5);
+        return view('admin.categorias.index', compact('categorias','title'));
     }
 
     /**
@@ -33,7 +35,8 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        return view('admin.categorias.create');
+        $title = "Cadastro de categoria";
+        return view('admin.categorias.create-update', compact('title'));
     }
 
     /**
@@ -42,18 +45,24 @@ class CategoriaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoriaFormRequest $request)
     {
         //pega todo os dados do formulario -> $request->all();
         //pegas os campos especificos -> $request->only(['nome','slug']);
         //pega os campos execeto o que estiver especificado -> $request->except(['_token']);
         //pega um campo especifico -> $request->input('nome')
+        //valida os dados
+        //$this->validate($request, $this->categoria->rules);
+
         $dados = $request->except(['_token']);
-        
         $create = $this->categoria::create($dados);
         if($create){
-            return redirect()->route('admin.categorias');
+            $msg = 'Categoria cadastrada com sucesso';
+            $request->session()->flash('success', $msg);
+            return redirect()->route('admin.categorias', $msg);
         }else{
+            $msg = 'POST: 500 internal server';
+            $request->session()->flash('error', $msg);
             return redirect()->back();
         }
     }
@@ -77,7 +86,12 @@ class CategoriaController extends Controller
      */
     public function edit($id)
     {
-
+        $categoria = $this->categoria::find($id);
+        $title = "Categoria - $categoria->nome";
+        if( empty($categoria->id) ) {
+            return redirect()->route('admin.categorias');
+        }
+        return view('admin.categorias.create-update', compact('categoria','title'));
     }
 
     /**
@@ -87,19 +101,20 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoriaFormRequest $request, $id)
     {
         //->find() || ->where(coluna,valor)
+        $dados = $request->all();
         $categoria = $this->categoria->find($id);
-        $update = $categoria->update([
-            'nome'=>'',
-            'icon'=>'',
-            'slug'=>''
-        ]);
+        $update = $categoria->update($dados);
         if($update){
-            return;
+            $msg = 'Categoria alterada com sucesso';
+            $request->session()->flash('success', $msg);
+            return redirect()->route('admin.categorias');
         }else{
-            return;
+            $msg = 'PUT: 500 internal server';
+            $request->session()->flash('error', $msg);
+            return redirect()->back();
         }
         //dd($update);
     }
@@ -110,15 +125,19 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $req, $id)
     {
         $categorias = $this->categoria::all();
         //->delete() || destroy(id)
         $delete = $this->categoria->where('id',$id)->delete();
         
         if($delete){
+            $msg = 'Categoria removida com sucesso';
+            $req->session()->flash('success', $msg);
             return redirect()->route('admin.categorias');
         }else{
+            $msg = 'POST: 500 internal server';
+            $req->session()->flash('error', $msg);
             return redirect()->back();
         }
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Cupon;
 
 class CupomController extends Controller
 {
@@ -14,7 +15,8 @@ class CupomController extends Controller
      */
     public function index()
     {
-        return view('admin.cupons.index');
+        $cupons = Cupon::all();
+        return view('admin.cupons.index', compact('cupons'));
     }
 
     /**
@@ -35,7 +37,13 @@ class CupomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dados = $req->all();
+
+        Cupon::create($dados);
+
+        $req->session()->flash('success', 'Cupom de desconto criado com sucesso!');
+
+        return redirect()->route('admin.cupons.index');
     }
 
     /**
@@ -80,6 +88,10 @@ class CupomController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Cupon::find($id)->delete();
+
+        $req->session()->flash('success', 'Cupom de desconto deletado com sucesso!');
+
+        return redirect()->route('admin.cupons.index');
     }
 }

@@ -30,6 +30,7 @@ class ComposerStaticInite8a4b37f5629efcdf50cc19b014860d7
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         '0d8253363903f0ac7b0978dcde4e28a0' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/helpers.php',
+        'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -146,6 +147,7 @@ class ComposerStaticInite8a4b37f5629efcdf50cc19b014860d7
         'C' => 
         array (
             'Cron\\' => 5,
+            'Collective\\Html\\' => 16,
         ),
         'B' => 
         array (
@@ -377,6 +379,10 @@ class ComposerStaticInite8a4b37f5629efcdf50cc19b014860d7
         array (
             0 => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron',
         ),
+        'Collective\\Html\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravelcollective/html/src',
+        ),
         'BeyondCode\\DumpServer\\' => 
         array (
             0 => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src',
@@ -442,8 +448,10 @@ class ComposerStaticInite8a4b37f5629efcdf50cc19b014860d7
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Http\\Requests\\Admin\\CategoriaFormRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Admin/CategoriaFormRequest.php',
+        'App\\Http\\Requests\\Admin\\CuponFormRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Admin/CuponFormRequest.php',
+        'App\\Http\\Requests\\Admin\\ProdutoFormRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Admin/ProdutoFormRequest.php',
         'App\\Models\\Admin\\Categoria' => __DIR__ . '/../..' . '/app/Models/Admin/Categoria.php',
-        'App\\Models\\Admin\\Compra' => __DIR__ . '/../..' . '/app/Models/Admin/Compra.php',
         'App\\Models\\Admin\\Cupon' => __DIR__ . '/../..' . '/app/Models/Admin/Cupon.php',
         'App\\Models\\Admin\\Pedido' => __DIR__ . '/../..' . '/app/Models/Admin/Pedido.php',
         'App\\Models\\Admin\\PedidoProduto' => __DIR__ . '/../..' . '/app/Models/Admin/PedidoProduto.php',
@@ -464,6 +472,13 @@ class ComposerStaticInite8a4b37f5629efcdf50cc19b014860d7
         'Carbon\\Exceptions\\InvalidDateException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
         'Carbon\\Laravel\\ServiceProvider' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Laravel/ServiceProvider.php',
         'Carbon\\Translator' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Translator.php',
+        'Collective\\Html\\Componentable' => __DIR__ . '/..' . '/laravelcollective/html/src/Componentable.php',
+        'Collective\\Html\\Eloquent\\FormAccessible' => __DIR__ . '/..' . '/laravelcollective/html/src/Eloquent/FormAccessible.php',
+        'Collective\\Html\\FormBuilder' => __DIR__ . '/..' . '/laravelcollective/html/src/FormBuilder.php',
+        'Collective\\Html\\FormFacade' => __DIR__ . '/..' . '/laravelcollective/html/src/FormFacade.php',
+        'Collective\\Html\\HtmlBuilder' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlBuilder.php',
+        'Collective\\Html\\HtmlFacade' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlFacade.php',
+        'Collective\\Html\\HtmlServiceProvider' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlServiceProvider.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/AbstractField.php',
         'Cron\\CronExpression' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/CronExpression.php',
         'Cron\\DayOfMonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/DayOfMonthField.php',
