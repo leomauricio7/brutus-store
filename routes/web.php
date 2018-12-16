@@ -33,7 +33,9 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware'=>'auth'], fu
     Route::get('/cupons', 'CupomController@index')->name('admin.cupons');
     Route::get('/cupons/create', 'CupomController@create')->name('admin.cupons.create');
     Route::post('/cupons/create', 'CupomController@store')->name('admin.cupons.store');
-    Route::get('/cupons/delete/{id}', 'CupomController@destroy')->name('admin.cupon.destroy');
+    Route::get('/cupons/{id}/edit', 'CupomController@edit')->name('admin.cupons.edit');
+    Route::put('/cupons/update/{id}', 'CupomController@update')->name('admin.cupons.update');
+    Route::get('/cupons/delete/{id}', 'CupomController@destroy')->name('admin.cupons.destroy');
 });
 
 /************** EXEMPLOS DE UTILIZAÇÃO DE ROTAS ************************/

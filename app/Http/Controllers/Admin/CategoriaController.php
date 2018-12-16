@@ -24,7 +24,7 @@ class CategoriaController extends Controller
     public function index()
     {
         $title = "Categorias";
-        $categorias = $this->categoria::paginate(5);
+        $categorias = $this->categoria::paginate(4);
         return view('admin.categorias.index', compact('categorias','title'));
     }
 
@@ -127,7 +127,6 @@ class CategoriaController extends Controller
      */
     public function destroy(Request $req, $id)
     {
-        $categorias = $this->categoria::all();
         //->delete() || destroy(id)
         $delete = $this->categoria->where('id',$id)->delete();
         

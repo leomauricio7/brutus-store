@@ -88,7 +88,7 @@
         <script>
             $(document).ready(function(){
                 $('.datepicker').datepicker({
-                    'format':'dd/mm/yyyy'
+                    'format':'yyyy/mm/dd'
                 });
                 $('.tooltipped').tooltip();
                 $('select').formSelect();

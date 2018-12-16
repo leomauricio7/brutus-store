@@ -37,7 +37,7 @@
           </span>
         </div>
       </div>
-      {!! Form::submit('Salvar', ['class'=>'btn waves-effect waves-light green']) !!}
+      {!! Form::submit('Salvar', ['class'=>'waves-effect waves-light btn']) !!}
     {!! Form::close() !!}
   </div>
 @endsection

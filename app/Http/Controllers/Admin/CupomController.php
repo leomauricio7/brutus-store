@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Cupon;
+use App\Http\Requests\Admin\CuponFormrequest;
 
 class CupomController extends Controller
 {
@@ -13,10 +14,18 @@ class CupomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    private $cupon;
+
+    public function __construct(Cupon $cupon){
+        $this->cupon = $cupon;
+    }
+
     public function index()
     {
-        $cupons = Cupon::all();
-        return view('admin.cupons.index', compact('cupons'));
+        $title = "Cupons";
+        $cupons = $this->cupon::paginate(4);
+        return view('admin.cupons.index', compact('cupons','title'));
     }
 
     /**
@@ -26,7 +35,20 @@ class CupomController extends Controller
      */
     public function create()
     {
-        return view('admin.cupons.create');
+        $title = "Novo Cupon";
+        $modo_desconto = [
+                'valor'=> 'Valor',
+                'porc' =>'Porcentagem',
+            ];
+        $modo_limite= [
+            'valor'=> 'Valor',
+            'qtd' =>'Quantidade',
+        ];
+        $status = [
+            'S'=> 'Sim',
+            'N' =>'Não',
+        ];
+        return view('admin.cupons.create-update',compact('title','modo_desconto','modo_limite','status'));
     }
 
     /**
@@ -35,15 +57,19 @@ class CupomController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CuponFormrequest $request)
     {
-        $dados = $req->all();
-
-        Cupon::create($dados);
-
-        $req->session()->flash('success', 'Cupom de desconto criado com sucesso!');
-
-        return redirect()->route('admin.cupons.index');
+        $dados = $request->except(['_token']);
+        $create = $this->cupon::create($dados);
+        if($create){
+            $msg = 'Cupon cadastrado com sucesso';
+            $request->session()->flash('success', $msg);
+            return redirect()->route('admin.cupons', $msg);
+        }else{
+            $msg = 'POST: 500 internal server';
+            $request->session()->flash('error', $msg);
+            return redirect()->back();
+        }
     }
 
     /**
@@ -65,7 +91,24 @@ class CupomController extends Controller
      */
     public function edit($id)
     {
-        //
+        $modo_desconto = [
+                'valor'=> 'Valor',
+                'porc' =>'Porcentagem',
+            ];
+        $modo_limite= [
+            'valor'=> 'Valor',
+            'qtd' =>'Quantidade',
+        ];
+        $status = [
+            'S'=> 'Sim',
+            'N' =>'Não',
+        ];
+        $cupon = $this->cupon::find($id);
+        $title = "Cupon - $cupon->localizador";
+        if( empty($cupon->id) ) {
+            return redirect()->route('admin.cupons');
+        }
+        return view('admin.cupons.create-update', compact('cupon','title','modo_desconto','modo_limite','status'));
     }
 
     /**
@@ -77,7 +120,18 @@ class CupomController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $dados = $request->all();
+        $cupon = $this->cupon->find($id);
+        $update = $cupon->update($dados);
+        if($update){
+            $msg = 'Cupon alterado com sucesso';
+            $request->session()->flash('success', $msg);
+            return redirect()->route('admin.cupons');
+        }else{
+            $msg = 'PUT: 500 internal server';
+            $request->session()->flash('error', $msg);
+            return redirect()->back();
+        }
     }
 
     /**
@@ -86,12 +140,18 @@ class CupomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $req, $id)
     {
-        Cupon::find($id)->delete();
-
-        $req->session()->flash('success', 'Cupom de desconto deletado com sucesso!');
-
-        return redirect()->route('admin.cupons.index');
+        $delete = $this->cupon->where('id',$id)->delete();
+        
+        if($delete){
+            $msg = 'Cupon removido com sucesso';
+            $req->session()->flash('success', $msg);
+            return redirect()->route('admin.cupons');
+        }else{
+            $msg = 'POST: 500 internal server';
+            $req->session()->flash('error', $msg);
+            return redirect()->back();
+        }
     }
 }
