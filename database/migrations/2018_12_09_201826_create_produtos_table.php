@@ -16,14 +16,15 @@ class CreateProdutosTable extends Migration
         Schema::create('produtos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome');
+            $table->string('slug');
             $table->text('descricao');
             $table->decimal('valor', 5, 2)->default(0);
             $table->decimal('peso', 5, 2)->default(0);
             $table->decimal('largura', 5, 2)->default(0);
             $table->decimal('comprimento', 5, 2)->default(0);
-            $table->enum('tamanho', ['P','M', 'G'])->nullable();
+            $table->enum('tamanho', ['P','M', 'G','GG','ND'])->default('ND');
             $table->enum('ativo', ['S','N'])->default('S');
-            $table->integer('quantidade');
+            $table->integer('quantidade')->default(0);
             $table->integer('categoria_id')->unsigned();
             $table->foreign('categoria_id')->references('id')->on('categorias');
             $table->timestamps();

@@ -53,122 +53,16 @@
               Produtos
             </a>
             <ul class="dropdown-menu">
+              @foreach($categorias as $categoria)
               <li>
-                <a href="{{ route('show.produto','teste') }}">
-                  <img src="{{ url('img/cat/cat-airsoft.png') }}">
-                  Airsoft
+                <a href="{{ route('produtos.categoria', $categoria->slug) }}">
+                  <i class="small material-icons">{{ $categoria->icon }}</i>
+                  {{ $categoria->nome }}
                 </a>
               </li>    
+              @endforeach
               <li>
-                <a href="{{ route('show.produto','teste') }}">
-                  <img src="{{ url('img/cat/cat-alicate.png') }}">
-                  Alicates
-                </a>
-              </li>                         
-              <li>
-                <a href="{{ route('show.produto','teste') }}">
-                  <img src="{{ url('img/cat/cat-bandoleira.png') }}">
-                  Bandoleiras
-                </a>
-              </li>  
-              <li>
-                <a href="{{ route('show.produto','teste') }}">
-                  <img src="{{ url('img/cat/cat-bastao.png') }}">
-                  Bastões
-                </a>
-              </li>   
-              <li>
-                <a href="{{ route('show.produto','teste') }}">
-                  <img src="{{ url('img/cat/cat-bolsa.png') }}">
-                  Bolsas
-                </a>
-              </li>  
-              <li>
-                <a href="{{ route('show.produto','teste') }}">
-                  <img src="{{ url('img/cat/cat-camisa.png') }}">
-                  Camisas
-                </a>
-              </li> 
-              <li>
-                <a href="{{ route('show.produto','teste') }}">
-                  <img src="{{ url('img/cat/cat-canivete.png') }}">
-                  Canivetes
-                </a>
-              </li> 
-              <li>
-                <a href="{{ route('show.produto','teste') }}">
-                  <img src="{{ url('img/cat/cat-carregador.png') }}">
-                  Carregadores
-                </a>
-              </li>
-              <li>
-                <a href="{{ route('show.produto','teste') }}">
-                  <img src="{{ url('img/cat/cat-chapeu.png') }}">
-                  Chapéus
-                </a>
-              </li>  
-              <li>
-                <a href="{{ route('show.produto','teste') }}">
-                  <img src="{{ url('img/cat/cat-cinto.png') }}">
-                  Cintos
-                </a>
-              </li>  
-              <li>
-                <a href="{{ route('show.produto','teste') }}">
-                  <img src="{{ url('img/cat/cat-colete.png') }}">
-                  Coletes
-                </a>
-              </li>                                                                                                                        
-              <li>
-                <a href="{{ route('show.produto','teste') }}">
-                  <img src="{{ url('img/cat/cat-faca.png') }}">
-                  Facas
-                </a>
-              </li>
-              <li>
-                <a href="{{ route('show.produto','teste') }}">
-                  <img src="{{ url('img/cat/cat-lanterna.png') }}">
-                  Lanternas
-                </a>
-              </li> 
-              <li>
-                <a href="{{ route('show.produto','teste') }}">
-                  <img src="{{ url('img/cat/cat-mochila.png') }}">
-                  Mochilas
-                </a>
-              </li>              
-              <li>
-                <a href="{{ route('show.produto','teste') }}">
-                  <img src="{{ url('img/cat/cat-multiuso.png') }}">
-                  Multiuso
-                </a>
-              </li> 
-              <li>
-                <a href="{{ route('show.produto','teste') }}">
-                  <img src="{{ url('img/cat/cat-patch.png') }}">
-                  Patch
-                </a>
-              </li> 
-              <li>
-                <a href="{{ route('show.produto','teste') }}">
-                  <img src="{{ url('img/cat/cat-porta-carregador.png') }}">
-                  Porta carregador
-                </a>
-              </li> 
-              <li>
-                <a href="{{ route('show.produto','teste') }}">
-                  <img src="{{ url('img/cat/cat-pulseira.png') }}">
-                  Pulseiras
-                </a>
-              </li>  
-              <li>
-                <a href="{{ route('show.produto','teste') }}">
-                  <img src="{{ url('img/cat/cat-spray.png') }}">
-                  Spray de Pimenta
-                </a>
-              </li> 
-              <li>
-                <a href="{{ route('produtos') }}" style="color: #186548">
+                <a href="{{ route('produtos'), 'all'}}" style="color: #186548">
                   <img src="{{ url('img/cat/cat-todos.png') }}">
                   Ver todos
                 </a>

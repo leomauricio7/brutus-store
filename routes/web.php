@@ -10,7 +10,7 @@ Route::group(['namespace' => 'Site'], function(){
     Route::get('/contato', 'SiteController@contato')->name('contato');
     Route::get('/carrinho', 'SiteController@carrinho')->name('carrinho');
     Route::get('/finaliza-compra', 'SiteController@finalizaCompra')->name('finaliza.compra');
-    Route::get('/categoria/{idCategoria?}', 'SiteController@categoria')->name('categoria');
+    Route::get('/produtos/{categoria?}', 'SiteController@categoria')->name('produtos.categoria');
     Route::get('/', function(){return redirect()->route('home');});
 });
 
@@ -20,6 +20,10 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware'=>'auth'], fu
     //produtos
     Route::get('/produtos', 'ProdutoController@index')->name('admin.produtos');
     Route::get('/produtos/create', 'ProdutoController@create')->name('admin.produtos.create');
+    Route::post('/produtos/create', 'ProdutoController@store')->name('admin.produtos.store');
+    Route::get('/produtos/{id}/edit', 'ProdutoController@edit')->name('admin.produtos.edit');
+    Route::put('/produtos/update/{id}', 'ProdutoController@update')->name('admin.produtos.update');
+    Route::get('/produtos/delete/{id}', 'ProdutoController@destroy')->name('admin.produtos.destroy');
     //pedidos
     Route::get('/pedidos', 'PedidoController@index')->name('admin.pedidos');
     //categorias

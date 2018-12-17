@@ -2,7 +2,9 @@
 
 @section('content')
 <blockquote>
-      <h5>Pedidos</h5>
+    <h5>
+        <b>Pedidos</b>
+    </h5>
 </blockquote>
 <hr>
 <table lass="highlight">

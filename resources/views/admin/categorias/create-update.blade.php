@@ -23,15 +23,15 @@
       <div class="row">
         <div class="input-field col s4">
           {!! Form::text('nome', null, ['class' => 'validate', 'placeholder' => 'Nome']) !!}
-          <label for="first_name">Nome</label>
+          {!! Form::label('nome', 'Nome') !!}
         </div>
         <div class="input-field col s4">
           {!! Form::text('slug', null, ['class' => 'validate', 'placeholder' => 'Slug']) !!}
-          <label for="last_name">Slug</label>
+          {!! Form::label('slug', 'Slug') !!}
         </div>
         <div class="input-field col s4">
             {!! Form::text('icon', null, ['class' => 'validate', 'placeholder' => 'Icon']) !!}
-            <label for="last_name">Icon</label>
+            {!! Form::label('icon', 'Icon') !!}
           <span class="helper-text" data-error="wrong" data-success="right">
           <a href="https://materializecss.com/icons.html" target="_blank">Visualizar Icons</a>
           </span>

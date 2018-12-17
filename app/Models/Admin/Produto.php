@@ -3,11 +3,13 @@
 namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Admin\Categoria;
 
 class Produto extends Model
 {
     protected $fillable = [
         'nome',
+        'slug',
         'descricao',
         'valor',
         'quantidade',

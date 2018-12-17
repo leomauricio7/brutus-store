@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Categoria;
 
 class SiteController extends Controller
 {
@@ -37,11 +38,14 @@ class SiteController extends Controller
      */
     public function index()
     {
-        return view('site.home');
+        $categorias = Categoria::all();
+        $title = 'Home';
+        return view('site.home', compact('categorias','title'));
     }
 
     public function produtos(){
-        return view('site.produtos');
+        $categorias = Categoria::all();
+        return view('site.produtos', compact('categorias','title'));
     }
 
     public function showProduto($produto=null){

@@ -2,7 +2,9 @@
 @section('title', $title)
 @section('content')
 <blockquote>
-      <h5>Categorias Cadastrados</h5>
+    <h5>
+        <b>Categorias Cadastrados</b>
+    </h5>
 </blockquote>
 @if (Session::has('success'))
     <div class="card-panel green darken-1"><span style="color: #FFF;">{{ Session::get('success') }}<span></div>

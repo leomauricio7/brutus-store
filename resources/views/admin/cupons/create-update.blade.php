@@ -2,7 +2,9 @@
 @section('title', $title)
 @section('content')
 <blockquote>
+  <h5>
     <b>{{ isset($cupon) ? $cupon->nome : 'Novo Cupon' }}</b>
+  </h5>
 </blockquote>
 @if(isset($errors) && count($errors) > 0)
   <div class="card-panel red darken-1">

@@ -2,39 +2,42 @@
 
 @section('content')
 <blockquote>
-      <h5>Produto Cadastrados</h5>
+    <h5>
+        <b>Produto Cadastrados</b>
+    </h5>
 </blockquote>
+@if (Session::has('success'))
+    <div class="card-panel green darken-1"><span style="color: #FFF;">{{ Session::get('success') }}<span></div>
+@elseif(Session::has('error'))
+    <div class="card-panel red darken-1"><span style="color: #FFF;">{{ Session::get('error') }}</span></div>
+@endif
 <hr>
 <a href="{{ route('admin.produtos.create')}}" class="waves-effect waves-blue btn green"><i class="material-icons left">add_circle</i>Novo Produto</a>
 <table lass="highlight">
     <thead>
         <tr>
+            <th>ID</th>
             <th>Produto</th>
             <th>Valor R$</th>
             <th>Quantidade</th>
-            <th>Criado em</th>
+            <th>Ativo</th>
         </tr>
     </thead>
 
     <tbody>
-        <tr>
-        <td>Alvin</td>
-        <td>Eclair</td>
-        <td>$0.87</td>
-        <td>$0.87</td>
-        </tr>
-        <tr>
-        <td>Alan</td>
-        <td>Jellybean</td>
-        <td>$3.76</td>
-        <td>$0.87</td>
-        </tr>
-        <tr>
-        <td>Jonathan</td>
-        <td>Lollipop</td>
-        <td>$7.00</td>
-        <td>$0.87</td>
-        </tr>
+        @foreach($produtos as $produto)
+            <tr>
+                <td>{{ $produto->id }}</td>
+                <td>{{ $produto->nome }}</td>
+                <td>R${{ $produto->valor }}</td>
+                <td>{{ $produto->quantidade }}</td>
+                <td>{{ $produto->ativo }}</td>
+                <td><a href="{{ route('admin.produtos.edit', $produto->id) }}"class="btn-floating orange"><i class="material-icons">edit</i></a></td>
+                <td><a href="{{ route('admin.produtos.destroy', $produto->id) }}" class="btn-floating red"><i class="material-icons">delete</i></a></td>
+            </tr>
+            <tr>
+        @endforeach
     </tbody>
-    </table>
+</table>
+{!! $produtos->links() !!}
 @endsection
