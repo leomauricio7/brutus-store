@@ -1,5 +1,5 @@
 @extends('admin.templates.template')
-
+@section('title',$title)
 @section('content')
 <blockquote>
     <h5>
@@ -21,6 +21,9 @@
             <th>Valor R$</th>
             <th>Quantidade</th>
             <th>Ativo</th>
+            <th>Image</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
 
@@ -32,6 +35,7 @@
                 <td>R${{ $produto->valor }}</td>
                 <td>{{ $produto->quantidade }}</td>
                 <td>{{ $produto->ativo }}</td>
+                <td><img class="responsive-img" width="50px" src="{{ url("storage/produtos/{$produto->image}") }}" alt="{{ $produto->image }}"></td>
                 <td><a href="{{ route('admin.produtos.edit', $produto->id) }}"class="btn-floating orange"><i class="material-icons">edit</i></a></td>
                 <td><a href="{{ route('admin.produtos.destroy', $produto->id) }}" class="btn-floating red"><i class="material-icons">delete</i></a></td>
             </tr>

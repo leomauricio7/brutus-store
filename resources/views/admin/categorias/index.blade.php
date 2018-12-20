@@ -32,7 +32,7 @@
             <td>{{ $categoria->id }}</td>
             <td>{{ $categoria->nome }}</td>
             <td>{{ $categoria->slug }}</td>
-            <td><i class="small material-icons">{{ $categoria->icon }}</i></td>
+            <td><img class="responsive-img" width="50px" src="{{ url("storage/categorias/{$categoria->icon}") }}" alt="{{ $categoria->icon }}"></td>
             <td>{{ $categoria->created_at }}</td>
             <td><a href="{{ route('admin.categorias.edit', $categoria->id) }}" class="btn-floating orange"><i class="material-icons">edit</i></a></td>
             <td><a href="{{ route('admin.categorias.destroy', $categoria->id) }}" class="btn-floating red"><i class="material-icons">delete</i></a></td>

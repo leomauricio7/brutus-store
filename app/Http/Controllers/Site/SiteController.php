@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Site;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Categoria;
+use App\Models\Admin\Produto;
 
 class SiteController extends Controller
 {
@@ -39,43 +40,62 @@ class SiteController extends Controller
     public function index()
     {
         $categorias = Categoria::all();
+        $produtos = Produto::paginate(8);
         $title = 'Home';
-        return view('site.home', compact('categorias','title'));
+        return view('site.home', compact('produtos','categorias','title'));
     }
 
     public function produtos(){
+        $title = "Produtos";
+        $produtos = Produto::paginate(6);
         $categorias = Categoria::all();
-        return view('site.produtos', compact('categorias','title'));
+        return view('site.produtos', compact('categorias','produtos','title'));
     }
 
-    public function showProduto($produto=null){
-        $categoria =  'Canivete';
-        $valor = '110,00';
-        return view('site.showProduto', compact('produto','categoria','valor'));
+    public function showProduto($slug){
+        $produto = Produto::where('slug', $slug)->get();
+        $categorias = Categoria::all();
+        $categoriasProd = Categoria::where('id', $produto[0]->categoria_id)->get();
+        $categoria = $categoriasProd[0]->nome;
+        $title = $produto[0]->nome;
+        $produtosRelacionados = Produto::where('categoria_id', $produto[0]->categoria_id)->paginate(4);
+        return view('site.showProduto', compact('produto','categoria','categorias','title','produtosRelacionados'));
     }
 
-    public function categoria($idcategoria = null)
+    public function categoria($categoria)
     {
-        return "Categoria $idcategoria";
+        $categorias = Categoria::all();
+        $categoriasEnviada = Categoria::where('slug', $categoria)->get();
+        $produtos = Produto::where('categoria_id', $categoriasEnviada[0]->id)->paginate(6);
+        $title = $categoriasEnviada[0]->nome;
+        return view('site.produtos', compact('categorias','produtos','title'));
     }
 
     public function sobre()
     {
-        return View('site.sobre');
+        $title = 'Sobre';
+        $categorias = Categoria::all();
+        return View('site.sobre',compact('categorias','title'));
     }
 
     public function contato()
     {
-        return View('site.contato');
+        $title = 'Contato';
+        $categorias = Categoria::all();
+        return View('site.contato',compact('categorias','title'));
     }
 
     public function carrinho ()
     {
-        return view('site.carrinho');
+        $title = "Carrinho";
+        $categorias = Categoria::all();
+        return view('site.carrinho',compact('categorias','title'));
     }
 
     public function finalizaCompra()
     {
-        return View('site.finalizaCompra');
+        $title = 'Finaliza Compra';
+        $categorias = Categoria::all();
+        return View('site.finalizaCompra',compact('categorias','title'));
     }
 }

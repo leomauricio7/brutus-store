@@ -50,7 +50,7 @@
             <div class="input-field col s3">
                 {!! Form::select('modo_limite', $modo_limite, null, ['class'=>'validate', 'placeholder'=>'Selecione']) !!}
                 {!! Form::label('modo_limite', 'Modo Limite') !!}
-              </div>
+            </div>
             <div class="input-field col s3">
                 {!! Form::text('limite', null, ['class'=>'validate', 'placeholder'=>'Ex: 9.99']) !!}
                 {!! Form::label('limite', 'Limite') !!}

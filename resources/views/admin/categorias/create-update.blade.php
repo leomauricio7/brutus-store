@@ -16,9 +16,9 @@
 <hr>
 <div class="row">
     @if(isset($categoria))
-        {!! Form::model($categoria, ['route' => ['admin.categorias.update', $categoria->id], 'class' => 'col s12', 'method' => 'put']) !!}
+        {!! Form::model($categoria, ['route' => ['admin.categorias.update', $categoria->id], 'class' => 'col s12', 'method' => 'put', 'enctype'=>'multipart/form-data']) !!}
     @else
-        {!! Form::open(['route' => 'admin.categorias.store', 'class' => 'col s12', 'method' => 'post']) !!}
+        {!! Form::open(['route' => 'admin.categorias.store', 'class' => 'col s12', 'method' => 'post', 'enctype'=>'multipart/form-data']) !!}
     @endif
       <div class="row">
         <div class="input-field col s4">
@@ -29,12 +29,14 @@
           {!! Form::text('slug', null, ['class' => 'validate', 'placeholder' => 'Slug']) !!}
           {!! Form::label('slug', 'Slug') !!}
         </div>
-        <div class="input-field col s4">
-            {!! Form::text('icon', null, ['class' => 'validate', 'placeholder' => 'Icon']) !!}
-            {!! Form::label('icon', 'Icon') !!}
-          <span class="helper-text" data-error="wrong" data-success="right">
-          <a href="https://materializecss.com/icons.html" target="_blank">Visualizar Icons</a>
-          </span>
+        <div class="input-field file-field col s4">
+          <div class="btn">
+              {!! Form::file('icon', null) !!}
+              {!! Form::label('icon', 'File') !!}
+          </div>
+          <div class="file-path-wrapper">
+              {!! Form::text('label', null, ['class' => 'file-path validate', 'placeholder' => 'Icon']) !!}
+          </div>
         </div>
       </div>
       {!! Form::submit('Salvar', ['class'=>'waves-effect waves-light btn']) !!}

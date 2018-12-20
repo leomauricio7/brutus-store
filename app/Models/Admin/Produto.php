@@ -14,6 +14,7 @@ class Produto extends Model
         'valor',
         'quantidade',
         'ativo',
+        'image',
         'categoria_id',
         'tamanho',
         'largura',

@@ -24,7 +24,7 @@ class CategoriaController extends Controller
     public function index()
     {
         $title = "Categorias";
-        $categorias = $this->categoria::paginate(4);
+        $categorias = $this->categoria::paginate(2);
         return view('admin.categorias.index', compact('categorias','title'));
     }
 
@@ -53,17 +53,28 @@ class CategoriaController extends Controller
         //pega um campo especifico -> $request->input('nome')
         //valida os dados
         //$this->validate($request, $this->categoria->rules);
-
-        $dados = $request->except(['_token']);
-        $create = $this->categoria::create($dados);
-        if($create){
-            $msg = 'Categoria cadastrada com sucesso';
-            $request->session()->flash('success', $msg);
-            return redirect()->route('admin.categorias', $msg);
-        }else{
-            $msg = 'POST: 500 internal server';
-            $request->session()->flash('error', $msg);
-            return redirect()->back();
+         
+        // Define o valor default para a variável que contém o nome da imagem 
+        $nameFile = null;
+        if ($request->hasFile('icon') && $request->file('icon')->isValid()) {
+            $name = uniqid(date('HisYmd'));
+            $extension = $request->icon->extension();
+            $nameFile = "{$name}.{$extension}";
+            $upload = $request->icon->storeAs('categorias', $nameFile);
+            if ( $upload ){
+                $dados = $request->except(['_token']);
+                $dados['icon'] = $nameFile;
+                $create = $this->categoria::create($dados);
+                if($create){
+                    $msg = 'Categoria cadastrada com sucesso';
+                    $request->session()->flash('success', $msg);
+                    return redirect()->route('admin.categorias', $msg);
+                }else{
+                    $msg = 'POST: 500 internal server';
+                    $request->session()->flash('error', $msg);
+                    return redirect()->back();
+                }
+            }
         }
     }
 
@@ -104,19 +115,28 @@ class CategoriaController extends Controller
     public function update(CategoriaFormRequest $request, $id)
     {
         //->find() || ->where(coluna,valor)
-        $dados = $request->all();
-        $categoria = $this->categoria->find($id);
-        $update = $categoria->update($dados);
-        if($update){
-            $msg = 'Categoria alterada com sucesso';
-            $request->session()->flash('success', $msg);
-            return redirect()->route('admin.categorias');
-        }else{
-            $msg = 'PUT: 500 internal server';
-            $request->session()->flash('error', $msg);
-            return redirect()->back();
+        $nameFile = null;
+        if ($request->hasFile('icon') && $request->file('icon')->isValid()) {
+            $name = uniqid(date('HisYmd'));
+            $extension = $request->icon->extension();
+            $nameFile = "{$name}.{$extension}";
+            $upload = $request->icon->storeAs('categorias', $nameFile);
+            if ( $upload ){
+                $dados = $request->all();
+                $dados['icon'] = $nameFile;
+                $categoria = $this->categoria->find($id);
+                $update = $categoria->update($dados);
+                if($update){
+                    $msg = 'Categoria alterada com sucesso';
+                    $request->session()->flash('success', $msg);
+                    return redirect()->route('admin.categorias');
+                }else{
+                    $msg = 'PUT: 500 internal server';
+                    $request->session()->flash('error', $msg);
+                    return redirect()->back();
+                }
+            }
         }
-        //dd($update);
     }
 
     /**

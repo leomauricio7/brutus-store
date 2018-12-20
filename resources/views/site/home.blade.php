@@ -28,154 +28,29 @@
           <h2>Produtos</h2>
         </div>
         <div class="row">
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic">
-                <img class="image" src="img/team-1.jpg" alt="">
-                  <div class="middle">
-                    <div class="text"><i class="fa fa-search"></i></div>
+            @if(isset($produtos))
+              @foreach($produtos as $produto)
+                <div class="col-lg-3 col-md-6">
+                  <div class="member">
+                    <div class="pic">
+                      <img class="image" src="{{ url("storage/produtos/{$produto->image}") }}" alt="">
+                        <div class="middle">
+                          <div class="text"><a href="{{ route('show.produto', $produto->slug)}}"><i class="fa fa-search"></i></a></div>
+                        </div>
+                    </div>
+                    <div class="details">
+                      <h4>{{ $produto->nome }}</h4>
+                      <span>R$ {{ $produto->valor }}</span>
+                      <div class="carrinho">
+                        <a href=""><i class="fa fa-cart-plus"></i></a>
+                      </div>                
+                    </div>
                   </div>
-              </div>
-              <div class="details">
-                <h4>Descrição do Produto</h4>
-                <span>R$ 149,90</span>
-                <div class="carrinho">
-                  <a href=""><i class="fa fa-cart-plus"></i></a>
-                </div>                
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic">
-                <img src="img/team-2.jpg" alt="">
-                  <div class="middle">
-                    <div class="text"><i class="fa fa-search"></i></div>
-                  </div>                
-              </div>
-              <div class="details">
-                <h4>Descrição do Produto</h4>
-                <span>R$ 149,90</span>
-                <div class="carrinho">
-                  <a href=""><i class="fa fa-cart-plus"></i></a>
                 </div>
-              </div>          
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic">
-                <img src="img/team-3.jpg" alt="">
-                  <div class="middle">
-                    <div class="text"><i class="fa fa-search"></i></div>
-                  </div>                
-              </div>
-              <div class="details">
-                <h4>Descrição do Produto</h4>
-                <span>R$ 149,90</span>
-                <div class="carrinho">
-                  <a href=""><i class="fa fa-cart-plus"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic">
-                <img src="img/team-4.jpg" alt="">
-                  <div class="middle">
-                    <div class="text"><i class="fa fa-search"></i></div>
-                  </div>                
-              </div>
-              <div class="details">
-                <h4>Descrição do Produto</h4>
-                <span>R$ 149,90</span>
-                <div class="carrinho">
-                  <a href=""><i class="fa fa-cart-plus"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic">
-                <img src="img/team-5.jpg" alt="">
-                  <div class="middle">
-                    <div class="text"><i class="fa fa-search"></i></div>
-                  </div>                
-              </div>
-              <div class="details">
-                <h4>Descrição do Produto</h4>
-                <span>R$ 149,90</span>
-                <div class="carrinho">
-                  <a href=""><i class="fa fa-cart-plus"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic">
-                <img src="img/team-6.jpg" alt="">
-                  <div class="middle">
-                    <div class="text"><i class="fa fa-search"></i></div>
-                  </div>                
-              </div>
-              <div class="details">
-                <h4>Descrição do Produto</h4>
-                <span>R$ 149,90</span>
-                <div class="carrinho">
-                  <a href=""><i class="fa fa-cart-plus"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic">
-                <img src="img/team-7.jpg" alt="">
-                  <div class="middle">
-                    <div class="text"><i class="fa fa-search"></i></div>
-                  </div>                
-              </div>
-              <div class="details">
-                <h4>Descrição do Produto</h4>
-                <span>R$ 149,90</span>
-                <div class="carrinho">
-                  <a href=""><i class="fa fa-cart-plus"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic">
-                <img src="img/team-8.jpg" alt="">
-                  <div class="middle">
-                    <div class="text"><i class="fa fa-search"></i></div>
-                  </div>                
-              </div>
-              <div class="details">
-                <h4>Descrição do Produto</h4>
-                <span>R$ 149,90</span>
-                <div class="carrinho">
-                  <a href=""><i class="fa fa-cart-plus"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
+              @endforeach
+            @endif
         </div>        
-
       </div>
-    </section><!-- #team -->
+  </section><!-- #team -->
 
 @endsection

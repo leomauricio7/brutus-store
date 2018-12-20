@@ -1,5 +1,5 @@
 @extends('site.template.template')
-@section('title','Produto')
+@section('title',$title)
 @section('content')
 <section id="call-to-action" class="wow fadeInUp">
       <div class="container">
@@ -35,27 +35,29 @@
     <div class="container">
         <div class="card">
           <div class="container-fliud">
+            @if(isset($produto))
+            @foreach($produto as $prod)
             <div class="wrapper row">
               <div class="preview col-md-6">
                 
                 <div class="preview-pic tab-content">
-                  <div class="tab-pane active" id="pic-1"><img src="{{ url('img/team-1.jpg') }}" width="400" height="252" /></div>
-                  <div class="tab-pane" id="pic-2"><img src="{{ url('img/team-1.jpg') }}" width="400" height="252" /></div>
-                  <div class="tab-pane" id="pic-3"><img src="{{ url('img/team-1.jpg') }}" width="400" height="252" /></div>
-                  <div class="tab-pane" id="pic-4"><img src="{{ url('img/team-1.jpg') }}" width="400" height="252" /></div>
-                  <div class="tab-pane" id="pic-5"><img src="{{ url('img/team-1.jpg') }}" width="400" height="252" /></div>
+                  <div class="tab-pane active" id="pic-1"><img src="{{ url("storage/produtos/{$prod->image}") }}" width="400" height="252" /></div>
+                  <div class="tab-pane" id="pic-2"><img src="{{ url("storage/produtos/{$prod->image}") }}" width="400" height="252" /></div>
+                  <div class="tab-pane" id="pic-3"><img src="{{ url("storage/produtos/{$prod->image}") }}" width="400" height="252" /></div>
+                  <div class="tab-pane" id="pic-4"><img src="{{ url("storage/produtos/{$prod->image}") }}" width="400" height="252" /></div>
+                  <div class="tab-pane" id="pic-5"><img src="{{ url("storage/produtos/{$prod->image}") }}" width="400" height="252" /></div>
                 </div>
                 <ul class="preview-thumbnail nav nav-tabs">
-                  <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="{{ url('img/team-1.jpg') }}" /></a></li>
-                  <li><a data-target="#pic-2" data-toggle="tab"><img src="{{ url('img/team-1.jpg') }}" /></a></li>
-                  <li><a data-target="#pic-3" data-toggle="tab"><img src="{{ url('img/team-1.jpg') }}" /></a></li>
-                  <li><a data-target="#pic-4" data-toggle="tab"><img src="{{ url('img/team-1.jpg') }}" /></a></li>
-                  <li><a data-target="#pic-5" data-toggle="tab"><img src="{{ url('img/team-1.jpg') }}" /></a></li>
+                  <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="{{ url("storage/produtos/{$prod->image}") }}" /></a></li>
+                  <li><a data-target="#pic-2" data-toggle="tab"><img src="{{ url("storage/produtos/{$prod->image}") }}" /></a></li>
+                  <li><a data-target="#pic-3" data-toggle="tab"><img src="{{ url("storage/produtos/{$prod->image}") }}" /></a></li>
+                  <li><a data-target="#pic-4" data-toggle="tab"><img src="{{ url("storage/produtos/{$prod->image}") }}" /></a></li>
+                  <li><a data-target="#pic-5" data-toggle="tab"><img src="{{ url("storage/produtos/{$prod->image}") }}" /></a></li>
                 </ul>
                 
               </div>
               <div class="details col-md-6">
-                <h3 class="product-title">{{ $produto }}</h3>
+                <h3 class="product-title">{{ $prod->nome }}</h3>
                 <div class="rating">
                   <div class="stars">
                     <span class="fa fa-star checked"></span>
@@ -66,11 +68,11 @@
                   </div>
                 </div>
                 <p class="product-description">
-                  Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos.
+                  {{ $prod->descricao }}
                 </p>
-                <h4 class="price">Valor: <span>R$ {{ $valor }}</span></h4>
-                <h5 class="sizes">Categoria:
-                  <span class="size" data-toggle="tooltip" title="small">{{ $categoria}}</span>
+                <h4 class="price">Valor: <span>R$ {{ $prod->valor }}</span></h4>
+                <h5 class="sizes">Categoria: {{ $categoria }}
+                  <span class="size" data-toggle="tooltip" title="small"></span>
                 </h5>
                 <div class="action">
                   <a href="{{ route('carrinho') }}"><button class="add-to-cart btn btn-default" type="button"><i class="fa fa-cart-plus"></i> ADICIONAR AO CARRINHO</button></a>
@@ -88,12 +90,13 @@
               <div class="tab-content">
                 <div id="home" class="tab-pane fade in active" style="padding: 20px;">
                   <p>
-                    Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos.
+                    {{ $prod->descricao}}
                   </p>
                 </div>
                 <div id="menu1" class="tab-pane fade" style="padding: 20px;">
                   <p>
-                    Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos.
+                   <b>Tamanho: </b>{{ $prod->tamanho}}ml  <b>Largura: </b>{{ $prod->largura }}ml
+                   <b>Comprimento: </b>{{ $prod->comprimento}}ml  <b>Peso: </b>{{ $prod->peso }}kg
                   </p>
                 </div>
                 <div id="menu2" class="tab-pane fade" style="padding: 20px;">
@@ -103,7 +106,8 @@
                 </div>
               </div>              
             </div>
-
+            @endforeach
+            @endif
           </div>
         </div>
       </div>
@@ -114,77 +118,29 @@
           <h2>Produtos Relacionados</h2>
         </div>
         <div class="row">
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic">
-                <img class="image" src="{{ url('img/team-1.jpg') }}" alt="">
-                  <div class="middle">
-                    <div class="text"><i class="fa fa-search"></i></div>
-                  </div>
-              </div>
-              <div class="details">
-                <h4>Descrição do Produto</h4>
-                <span>R$ 149,90</span>
-                <div class="carrinho">
-                  <a href=""><i class="fa fa-cart-plus"></i></a>
-                </div>                
-              </div>
-            </div>
-          </div>
 
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic">
-                <img class="image" src="{{ url('img/team-2.jpg') }}" alt="">
-                  <div class="middle">
-                    <div class="text"><i class="fa fa-search"></i></div>
+            @if(isset($produtosRelacionados))
+            @foreach($produtosRelacionados as $prodRel)
+              <div class="col-lg-3 col-md-6">
+                <div class="member">
+                  <div class="pic">
+                    <img class="image" src="{{ url("storage/produtos/{$prodRel->image}") }}" alt="">
+                      <div class="middle">
+                        <div class="text"><a href="{{ route('show.produto', $prodRel->slug)}}"><i class="fa fa-search"></i></a></div>
+                      </div>
                   </div>
-              </div>
-              <div class="details">
-                <h4>Descrição do Produto</h4>
-                <span>R$ 149,90</span>
-                <div class="carrinho">
-                  <a href=""><i class="fa fa-cart-plus"></i></a>
-                </div>
-              </div>          
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic">
-                <img class="image" src="{{ url('img/team-3.jpg') }}" alt="">
-                  <div class="middle">
-                    <div class="text"><i class="fa fa-search"></i></div>
+                  <div class="details">
+                    <h4>{{ $prodRel->nome }}</h4>
+                    <span>R$ {{ $prodRel->valor }}</span>
+                    <div class="carrinho">
+                      <a href=""><i class="fa fa-cart-plus"></i></a>
+                    </div>                
                   </div>
-              </div>
-              <div class="details">
-                <h4>Descrição do Produto</h4>
-                <span>R$ 149,90</span>
-                <div class="carrinho">
-                  <a href=""><i class="fa fa-cart-plus"></i></a>
                 </div>
               </div>
-            </div>
-          </div>
+            @endforeach
+          @endif
 
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic">
-                <img class="image" src="{{ url('img/team-4.jpg') }}" alt="">
-                  <div class="middle">
-                    <div class="text"><i class="fa fa-search"></i></div>
-                  </div>
-              </div>
-              <div class="details">
-                <h4>Descrição do Produto</h4>
-                <span>R$ 149,90</span>
-                <div class="carrinho">
-                  <a href=""><i class="fa fa-cart-plus"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>              
 
       </div>

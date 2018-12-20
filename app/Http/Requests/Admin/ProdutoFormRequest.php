@@ -30,11 +30,12 @@ class ProdutoFormRequest extends FormRequest
             'descricao'=>'max:1000',
             'valor'=>'required|min:1|max:5',
             'quantidade'=>'required|min:1|numeric',
-            'categoria_id'=>'required',
-            'tamanho'=>'required|max:3',
-            'largura'=>'max:3',
-            'comprimento'=>'max:3',
-            'peso'=>'max:4',
+            'categoria_id'=>'required|numeric',
+            'tamanho'=>'max:4',
+            'image'=>'required',
+            'largura'=>'required|max:4',
+            'comprimento'=>'required|max:4',
+            'peso'=>'required|max:4',
         ];
     }
 }

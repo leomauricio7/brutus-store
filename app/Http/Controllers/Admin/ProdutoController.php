@@ -25,7 +25,7 @@ class ProdutoController extends Controller
     public function index()
     {
         $title = 'Produtos';
-        $produtos = $this->produto->paginate(4);
+        $produtos = $this->produto->paginate(2);
         return view('admin.produtos.index', compact('produtos','title'));
     }
 
@@ -38,18 +38,8 @@ class ProdutoController extends Controller
     {
         $title = "Novo Produto";
         $categorias = Categoria::select('id','nome')->get();
-        $ativo = [
-            'S'=>'Sim',
-            'N'=>'Não'
-        ];
-        $tamanho = [
-            'ND'=>'Não Definido',
-            'P'=>'P',
-            'M'=>'M',
-            'G'=>'G',
-            'GG'=>'GG'
-        ];
-        return view('admin.produtos.create-update', compact('categorias', 'ativo','title','tamanho'));
+        $listStatus= ['S'=> 'Sim','N' =>'Não'];
+        return view('admin.produtos.create-update', compact('listStatus','categorias','title'));
     }
 
     /**
@@ -58,19 +48,28 @@ class ProdutoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProdutoFormrequest $request)
+    public function store(ProdutoFormRequest $request)
     {
-        $dados = $request->except(['_token']);
-
-        $create = $this->produto::create($dados);
-        if($create){
-            $msg = 'Produto cadastrado com sucesso';
-            $request->session()->flash('success', $msg);
-            return redirect()->route('admin.produtos', $msg);
-        }else{
-            $msg = 'POST: 500 internal server';
-            $request->session()->flash('error', $msg);
-            return redirect()->back();
+        $nameFile = null;
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $name = uniqid(date('HisYmd'));
+            $extension = $request->image->extension();
+            $nameFile = "{$name}.{$extension}";
+            $upload = $request->image->storeAs('produtos', $nameFile);
+            if ( $upload ){
+                $dados = $request->except(['_token']);
+                $dados['image'] = $nameFile;
+                $create = $this->produto::create($dados);
+                if($create){
+                    $msg = 'Produto cadastrado com sucesso';
+                    $request->session()->flash('success', $msg);
+                    return redirect()->route('admin.produtos', $msg);
+                }else{
+                    $msg = 'POST: 500 internal server';
+                    $request->session()->flash('error', $msg);
+                    return redirect()->back();
+                }
+            }
         }
     }
 
@@ -95,13 +94,12 @@ class ProdutoController extends Controller
     {
         $produto = $this->produto::find($id);
         $title = "Produto - $produto->nome";
-        if( empty($cupon->id) ) {
+        if( empty($produto->id) ) {
             return redirect()->route('admin.produtos');
         }
-        $categorias =  Categoria::all();
-        $ativo = ['S'=>'Sim','N'=>'Não'];
-        $tamanho = ['P'=>'P','M'=>'M','G'=>'G','GG'=>'GG'];
-        return view('admin.produtos.create-update', compact('produto', 'categorias', 'ativo','title','tamanho'));
+        $categorias = Categoria::select('id','nome')->get();
+        $listStatus= ['S'=> 'Sim','N' =>'Não'];
+        return view('admin.produtos.create-update', compact('produto', 'categorias', 'listStatus','title'));
     }
 
     /**

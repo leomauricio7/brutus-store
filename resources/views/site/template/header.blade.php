@@ -53,14 +53,16 @@
               Produtos
             </a>
             <ul class="dropdown-menu">
-              @foreach($categorias as $categoria)
-              <li>
-                <a href="{{ route('produtos.categoria', $categoria->slug) }}">
-                  <i class="small material-icons">{{ $categoria->icon }}</i>
-                  {{ $categoria->nome }}
-                </a>
-              </li>    
-              @endforeach
+              @if(isset($categorias))
+                @foreach($categorias as $categoria)
+                <li>
+                  <a href="{{ route('produtos.categoria', $categoria->slug) }}">
+                    <img width="20px" src="{{ url("storage/categorias/{$categoria->icon}") }}">
+                    {{ $categoria->nome }}
+                  </a>
+                </li>    
+                @endforeach
+              @endif
               <li>
                 <a href="{{ route('produtos'), 'all'}}" style="color: #186548">
                   <img src="{{ url('img/cat/cat-todos.png') }}">

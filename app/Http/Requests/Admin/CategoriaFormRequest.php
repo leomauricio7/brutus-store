@@ -26,14 +26,14 @@ class CategoriaFormRequest extends FormRequest
         return [
             'nome'=>'required|min:3|max:100',
             'slug'=>'required|min:3|max:100',
-            'icon'=>'required|min:3|max:100',
+            'icon'=>'required',
         ];
     }
     public function messages(){
         return [
             'nome.required' => 'O campo nome é de preenchimento obrigatório!',
             'slug.required' => 'O campo slug é de preenchimento obrigatório!',
-            'icon.required' => 'O campo icon é de preenchimento obrigatório!',
+            'icon.required' => 'O campo icon é obrigatório!',
         ];
     }
 }

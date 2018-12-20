@@ -24,7 +24,7 @@ class CupomController extends Controller
     public function index()
     {
         $title = "Cupons";
-        $cupons = $this->cupon::paginate(4);
+        $cupons = $this->cupon::paginate(2);
         return view('admin.cupons.index', compact('cupons','title'));
     }
 

@@ -54,187 +54,46 @@
             <div class="col-lg-3 col-md-6">
               <ul class="list-group">
                 <li class="list-group-item active" style="font-weight: bold;">CATEGORIAS</li>
-                <li class="list-group-item">Categoria 1</li>
-                <li class="list-group-item">Categoria 2</li>
-                <li class="list-group-item">Categoria 3</li>
-                <li class="list-group-item">Categoria 4</li>
-                <li class="list-group-item">Categoria 5</li>
-                <li class="list-group-item">Categoria 6</li>                
+                @if(isset($categorias))
+                @foreach($categorias as $categoria)
+                  <li class="list-group-item"><a href="{{ route('produtos.categoria', $categoria->slug) }}">{{ $categoria->nome}}</a></li>
+                @endforeach
+                @endif             
               </ul>
             </div>   
             <div class="col-lg-9 col-md-6">            
-
-              <div class="col-lg-4 col-md-6">
-                <div class="member">
-                  <div class="pic">
-                    <img class="image" src="img/team-1.jpg" alt="">
-                      <div class="middle">
-                        <div class="text"><a href="index?p=produtos-view"><i class="fa fa-search"></i></a></div>
+              @if(isset($produtos))
+              @foreach($produtos as $produto)
+                <div class="col-lg-4 col-md-6">
+                    <div class="member">
+                        <div class="pic">
+                          <img class="image" src="{{ url("storage/produtos/{$produto->image}") }}" alt="">
+                            <div class="middle">
+                              <div class="text"><a href="{{ route('show.produto', $produto->slug)}}"><i class="fa fa-search"></i></a></div>
+                            </div>
+                        </div>
+                        <div class="details">
+                          <h4>{{ $produto->nome }}</h4>
+                          <span>R$ {{ $produto->valor }}</span>
+                          <div class="carrinho">
+                            <a href=""><i class="fa fa-cart-plus"></i></a>
+                          </div>                
+                        </div>
                       </div>
-                  </div>
-                  <div class="details">
-                    <h4>Descrição do Produto</h4>
-                    <span>R$ 149,90</span>
-                    <div class="carrinho">
-                      <a href=""><i class="fa fa-cart-plus"></i></a>
-                    </div>                                 
-                  </div>
                 </div>
-              </div>
-
-              <div class="col-lg-4 col-md-6">
-                <div class="member">
-                  <div class="pic">
-                    <img class="image" src="img/team-2.jpg" alt="">
-                      <div class="middle">
-                        <div class="text"><a href="{{ route('show.produto','teste') }}"><i class="fa fa-search"></i></a></div>
-                      </div>
-                  </div>
-                  <div class="details">
-                    <h4>Descrição do Produto</h4>
-                    <span>R$ 149,90</span>
-                    <div class="carrinho">
-                      <a href=""><i class="fa fa-cart-plus"></i></a>
-                    </div>                
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-4 col-md-6">
-                <div class="member">
-                  <div class="pic">
-                    <img class="image" src="img/team-3.jpg" alt="">
-                      <div class="middle">
-                        <div class="text"><a href="{{ route('show.produto','teste') }}"><i class="fa fa-search"></i></a></div>
-                      </div>
-                  </div>
-                  <div class="details">
-                    <h4>Descrição do Produto</h4>
-                    <span>R$ 149,90</span>
-                    <div class="carrinho">
-                      <a href=""><i class="fa fa-cart-plus"></i></a>
-                    </div>                
-                  </div>
-                </div>
-              </div>             
-              
-              <div class="col-lg-4 col-md-6">
-                <div class="member">
-                  <div class="pic">
-                    <img class="image" src="img/team-4.jpg" alt="">
-                      <div class="middle">
-                        <div class="text"><a href="{{ route('show.produto','teste') }}"><i class="fa fa-search"></i></a></div>
-                      </div>
-                  </div>
-                  <div class="details">
-                    <h4>Descrição do Produto</h4>
-                    <span>R$ 149,90</span>
-                    <div class="carrinho">
-                      <a href=""><i class="fa fa-cart-plus"></i></a>
-                    </div>                
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-4 col-md-6">
-                <div class="member">
-                  <div class="pic">
-                    <img class="image" src="img/team-5.jpg" alt="">
-                      <div class="middle">
-                        <div class="text"><a href="{{ route('show.produto','teste') }}"><i class="fa fa-search"></i></a></div>
-                      </div>
-                  </div>
-                  <div class="details">
-                    <h4>Descrição do Produto</h4>
-                    <span>R$ 149,90</span>
-                    <div class="carrinho">
-                      <a href=""><i class="fa fa-cart-plus"></i></a>
-                    </div>                
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-4 col-md-6">
-                <div class="member">
-                  <div class="pic">
-                    <img class="image" src="img/team-6.jpg" alt="">
-                      <div class="middle">
-                        <div class="text"><a href="{{ route('show.produto','teste') }}"><i class="fa fa-search"></i></a></div>
-                      </div>
-                  </div>
-                  <div class="details">
-                    <h4>Descrição do Produto</h4>
-                    <span>R$ 149,90</span>
-                    <div class="carrinho">
-                      <a href=""><i class="fa fa-cart-plus"></i></a>
-                    </div>                
-                  </div>
-                </div>
-              </div>             
-
-              <div class="col-lg-4 col-md-6">
-                <div class="member">
-                  <div class="pic">
-                    <img class="image" src="img/team-7.jpg" alt="">
-                      <div class="middle">
-                        <div class="text"><a href="{{ route('show.produto','teste') }}"><i class="fa fa-search"></i></a></div>
-                      </div>
-                  </div>
-                  <div class="details">
-                    <h4>Descrição do Produto</h4>
-                    <span>R$ 149,90</span>
-                    <div class="carrinho">
-                      <a href=""><i class="fa fa-cart-plus"></i></a>
-                    </div>                
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-4 col-md-6">
-                <div class="member">
-                  <div class="pic">
-                    <img class="image" src="img/team-8.jpg" alt="">
-                      <div class="middle">
-                        <div class="text"><a href="{{ route('show.produto','teste') }}"><i class="fa fa-search"></i></a></div>
-                      </div>
-                  </div>
-                  <div class="details">
-                    <h4>Descrição do Produto</h4>
-                    <span>R$ 149,90</span>
-                    <div class="carrinho">
-                      <a href=""><i class="fa fa-cart-plus"></i></a>
-                    </div>                
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-4 col-md-6">
-                <div class="member">
-                  <div class="pic">
-                    <img class="image" src="img/team-1.jpg" alt="">
-                      <div class="middle">
-                        <div class="text"><a href="{{ route('show.produto','teste') }}"><i class="fa fa-search"></i></a></div>
-                      </div>
-                  </div>
-                  <div class="details">
-                    <h4>Descrição do Produto</h4>
-                    <span>R$ 149,90</span>
-                    <div class="carrinho">
-                      <a href=""><i class="fa fa-cart-plus"></i></a>
-                    </div>                
-                  </div>
-                </div>
-              </div>                
-              <div style="text-align: center;">
-              <ul class="pagination">
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-              </ul>              
-              </div>                                
-            </div>                                              
+              @endforeach
+              @endif
+                                      
+            </div>  
+            <div style="text-align: center;">
+                <ul class="pagination">
+                  <li><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">4</a></li>
+                  <li><a href="#">5</a></li>
+                </ul>              
+              </div>                                                
         </div>
     </div>
     @endsection

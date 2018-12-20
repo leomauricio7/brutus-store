@@ -5,12 +5,12 @@ Auth::routes();
 Route::group(['namespace' => 'Site'], function(){
     Route::get('/home', 'SiteController@index')->name('home');
     Route::get('/produtos', 'SiteController@produtos')->name('produtos');
-    Route::get('/produto/{nameProduto?}', 'SiteController@showProduto')->name('show.produto');
+    Route::get('/produto/{slug}', 'SiteController@showProduto')->name('show.produto');
     Route::get('/sobre', 'SiteController@sobre')->name('sobre');
     Route::get('/contato', 'SiteController@contato')->name('contato');
     Route::get('/carrinho', 'SiteController@carrinho')->name('carrinho');
     Route::get('/finaliza-compra', 'SiteController@finalizaCompra')->name('finaliza.compra');
-    Route::get('/produtos/{categoria?}', 'SiteController@categoria')->name('produtos.categoria');
+    Route::get('/produtos/categoria/{categoria?}', 'SiteController@categoria')->name('produtos.categoria');
     Route::get('/', function(){return redirect()->route('home');});
 });
 
