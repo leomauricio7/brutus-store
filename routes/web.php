@@ -6,8 +6,10 @@ Route::group(['namespace' => 'Site'], function(){
     Route::get('/home', 'SiteController@index')->name('home');
     Route::get('/produtos', 'SiteController@produtos')->name('produtos');
     Route::get('/produto/{slug}', 'SiteController@showProduto')->name('show.produto');
+    Route::get('/produtos/categoria/{categoria?}', 'SiteController@categoria')->name('produtos.categoria');
     Route::get('/sobre', 'SiteController@sobre')->name('sobre');
     Route::get('/contato', 'SiteController@contato')->name('contato');
+
     //carrinho de compras
     Route::get('/carrinho', 'CarrinhoController@index')->name('carrinho');
     Route::get('/carrinho/adicionar', function(){
@@ -16,8 +18,8 @@ Route::group(['namespace' => 'Site'], function(){
     Route::post('/carrinho/adicionar', 'CarrinhoController@adicionar')->name('carrinho.adicionar');
     Route::delete('/carrinho/remover', 'CarrinhoController@remover')->name('carrinho.remover');
     //rota de finalizar compra
-    Route::get('/finaliza-compra', 'SiteController@finalizaCompra')->name('finaliza.compra');
-    Route::get('/produtos/categoria/{categoria?}', 'SiteController@categoria')->name('produtos.categoria');
+    Route::post('/finaliza-compra', 'CarrinhoController@finalizaCompra')->name('finaliza.compra');
+    Route::get('/carrinho/compras', 'CarrinhoController@compras')->name('carrinho.compras');
     Route::get('/', function(){return redirect()->route('home');});
 });
 

@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Site;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Admin\Categoria;
 use App\Models\Admin\Produto;
+use App\Models\Admin\Pedido;
+
 
 class SiteController extends Controller
 {
@@ -43,7 +46,7 @@ class SiteController extends Controller
     {
         $categorias = Categoria::all();
         $produtos = Produto::paginate(8);
-        $title = 'Home';
+        $title = 'Home';  
         return view('site.home', compact('produtos','categorias','title'));
     }
 
@@ -85,12 +88,5 @@ class SiteController extends Controller
         $title = 'Contato';
         $categorias = Categoria::all();
         return View('site.contato',compact('categorias','title'));
-    }
-
-    public function finalizaCompra()
-    {
-        $title = 'Finaliza Compra';
-        $categorias = Categoria::all();
-        return View('site.finalizaCompra',compact('categorias','title'));
     }
 }

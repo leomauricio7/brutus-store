@@ -119,20 +119,20 @@
               <td>R$ {{ number_format($total_pedido, 2, ',', '.') }}</td>
             </tr>
             <tr>
-              <td><strong>Entrega</strong></td>
-              <td><a href="#"><i class="fa fa-car"></i> Calcular Entrega</a></td>
-            </tr>
-            <tr>
               <td><strong>Total</strong></td>
-              <td>R$ 180,00</td>
+              <td>R$ {{ number_format($total_pedido, 2, ',', '.') }}</td>
             </tr>
           </tbody>  
         </table> 
-        <a href="{{ route('finaliza.compra') }}">  
-        <button class="btn btn-default-search-top" type="submit" style="font-weight: bold;">
-          FINALIZAR A COMPRA
-        </button> 
-        </a>              
+
+        <form method="POST" action="{{ route('finaliza.compra') }}">
+            {{ csrf_field() }}
+            <input type="hidden" name="pedido_id" value="{{ $pedido->id }}">
+            <button class="btn btn-default-search-top" type="submit" style="font-weight: bold;">
+                FINALIZAR A COMPRA
+              </button>  
+        </form>
+             
     </div> 
     <div class="col-lg-4 col-md-6">
         

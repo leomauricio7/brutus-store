@@ -29,7 +29,7 @@
     <div class="container" id="team" class="wow fadeInUp">
         <div class="row">
             <div class="section-header">
-              <a href="./index.php"><i class="fa fa-home"></i> Início</a> / Finalizar Compras         
+              <a href="{{ route('home')}}"><i class="fa fa-home"></i> Início</a> / Finalizar Compras         
             </div>                  
         </div>                      
     </div>   
@@ -37,58 +37,18 @@
     <div class="row">
       <div class="section-header">
         <h2>FINALIZAR COMPRAS</h2>
-        <p>Preencha os campos abaixo para finalizar sua compra.</p>  
-        <div class="col-lg-6 col-md-6">
-
-          <div class="form-group">
-            <label for="usr">Nome Completo:</label>
-            <input type="text" class="form-control" id="usr">
+        @if (Session::has('mensagem-sucesso'))
+          <div class="alert alert-success">
+              <strong>{{ Session::get('mensagem-sucesso') }}</strong>
           </div>
-          <div class="form-group">
-            <label for="pwd">CEP:</label>
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Informe o CEP">
-              <div class="input-group-btn">
-                <button class="btn btn-default" type="submit">
-                  <i class="fa fa-search"></i>
-                </button>
-              </div>
+        @endif
+        @if (Session::has('mensagem-falha'))
+            <div class="alert alert-danger">
+                <strong>{{ Session::get('mensagem-falha') }}</strong>
             </div>
-          </div>   
-          <div class="form-group">
-            <label for="pwd">Endereço:</label>
-            <input type="text" class="form-control" id="pwd">
-          </div>  
-          <div class="form-group">
-            <label for="pwd">Bairro:</label>
-            <input type="text" class="form-control" id="pwd">
-          </div>  
-          <div class="form-group">
-            <label for="pwd">Complemento:</label>
-            <input type="text" class="form-control" id="pwd">
-          </div>  
-          <div class="form-group">
-            <label for="pwd">Cidade:</label>
-            <input type="text" class="form-control" id="pwd">
-          </div>   
-          <div class="form-group">
-            <label for="pwd">Estado:</label>
-            <input type="text" class="form-control" id="pwd">
-          </div>    
-          <div class="form-group">
-            <label for="pwd">Telefone:</label>
-            <input type="text" class="form-control" id="pwd">
-          </div>   
-          <div class="form-group">
-            <label for="pwd">E-mail:</label>
-            <input type="text" class="form-control" id="pwd">
-          </div>                                                                               
-          <div class="form-group">
-            <label for="comment">Informações complementares sobre o pedido:</label>
-            <textarea class="form-control" rows="5" id="comment"></textarea>
-          </div>
-        </div>     
-        <div class="col-lg-6 col-md-6">
+        @endif
+        <div class="col-md-offset-2 col-lg-offset-2 col-lg-8 col-md-8">
+          @forelse($compras as $compra)  
           <table class="table table-bordered text-center" width="100%" style="text-align: center;">
             <thead style="background-color: #e8e8e8">
               <tr>
@@ -98,14 +58,23 @@
             <tbody>
               <tr>
                 <td><strong>Produto</strong></td>
+                @php
+                  $total_pedido = 0;
+                @endphp
                 <td>
-                  Descrição do Produto x <strong>1</strong><!-- AQUI PEGA O VALOR DA SESSÃO ANTERIOR (QUANTIDADE) -->
-                  <br/>                
+                    @foreach($compra->pedido_produtos as $pedido_produto)
+                    {{ $pedido_produto->produto->nome }} <img src="{{ url("storage/produtos/{$pedido_produto->produto->image}") }}" width="50px" /> x <strong>{{ $pedido_produto->qtd }}</strong> Unidade
+                    <br/>  
+                  @endforeach              
                 </td>
               </tr>
               <tr>
                 <td><strong>Subtotal</strong></td>
-                <td>R$ 180,00</td>
+                @php
+                $total_produto = ($pedido_produto->produto->valor * $pedido_produto->qtd) - $pedido_produto->descontos;
+                $total_pedido += $total_produto;
+                @endphp
+                <td>R$ {{ number_format( $total_pedido, 2, ',', '.') }}</td>
               </tr>              
               <tr>
                 <td><strong>Entrega</strong></td>
@@ -118,12 +87,19 @@
                   </div>                  
                 </td>
               </tr>
+              <tr>
+                  <td><strong>Entrega</strong></td>
+                  <td><a href="#"><i class="fa fa-car"></i> Calcular Entrega</a></td>
+              </tr>
               <tr style="background-color: #e8e8e8">
                 <td><strong>Total</strong></td>
                 <td>R$ 180,00</td>
               </tr>
             </tbody>  
-          </table>    
+          </table>   
+          @empty
+             <p>Pédido inválido</p> 
+          @endforelse
           <table class="table table-bordered text-center" width="100%" style="background-color: #e8e8e8;text-align: justify;">
             <tr>
               <td>
@@ -170,7 +146,57 @@
   <div class="container">
     <!-- Uncomment below if you wan to use dynamic maps -->
     <!--<div id="google-map" data-latitude="40.713732" data-longitude="-74.0092704"></div>-->
-  </div>
+  </div>/*
+  <p>Preencha os campos abaixo para finalizar sua compra.</p>  
+  <div class="col-lg-6 col-md-6">
 
-</section><!-- #contact -->
+    <div class="form-group">
+      <label for="usr">Nome Completo:</label>
+      <input type="text" class="form-control" id="usr">
+    </div>
+    <div class="form-group">
+      <label for="pwd">CEP:</label>
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Informe o CEP">
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="submit">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>   
+    <div class="form-group">
+      <label for="pwd">Endereço:</label>
+      <input type="text" class="form-control" id="pwd">
+    </div>  
+    <div class="form-group">
+      <label for="pwd">Bairro:</label>
+      <input type="text" class="form-control" id="pwd">
+    </div>  
+    <div class="form-group">
+      <label for="pwd">Complemento:</label>
+      <input type="text" class="form-control" id="pwd">
+    </div>  
+    <div class="form-group">
+      <label for="pwd">Cidade:</label>
+      <input type="text" class="form-control" id="pwd">
+    </div>   
+    <div class="form-group">
+      <label for="pwd">Estado:</label>
+      <input type="text" class="form-control" id="pwd">
+    </div>    
+    <div class="form-group">
+      <label for="pwd">Telefone:</label>
+      <input type="text" class="form-control" id="pwd">
+    </div>   
+    <div class="form-group">
+      <label for="pwd">E-mail:</label>
+      <input type="text" class="form-control" id="pwd">
+    </div>                                                                               
+    <div class="form-group">
+      <label for="comment">Informações complementares sobre o pedido:</label>
+      <textarea class="form-control" rows="5" id="comment"></textarea>
+    </div>
+  </div>     
+</section><!-- #contact -->*/
 @endsection
