@@ -61,39 +61,34 @@
                 @endif             
               </ul>
             </div>   
-            <div class="col-lg-9 col-md-6">            
-              @if(isset($produtos))
-              @foreach($produtos as $produto)
-                <div class="col-lg-4 col-md-6">
-                    <div class="member">
-                        <div class="pic">
-                          <img class="image" src="{{ url("storage/produtos/{$produto->image}") }}" alt="">
-                            <div class="middle">
-                              <div class="text"><a href="{{ route('show.produto', $produto->slug)}}"><i class="fa fa-search"></i></a></div>
-                            </div>
+            <div class="col-lg-9 col-md-6">        
+              @if(isset($produtos) && count($produtos) > 0)
+                @foreach($produtos as $produto)
+                  <div class="col-lg-4 col-md-6">
+                      <div class="member">
+                          <div class="pic">
+                            <img class="image" src="{{ url("storage/produtos/{$produto->image}") }}" alt="">
+                              <div class="middle">
+                                <div class="text"><a href="{{ route('show.produto', $produto->slug)}}"><i class="fa fa-search"></i></a></div>
+                              </div>
+                          </div>
+                          <div class="details">
+                            <h4>{{ $produto->nome }}</h4>
+                            <span>R$ {{ number_format($produto->valor, 2, ',', '.') }}</span>    
+                              <form method="POST" class="carrinho" action="{{ route('carrinho.adicionar') }}">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="id" value="{{ $produto->id }}">
+                                <button type="submit"><i class="fa fa-cart-plus"></i></button>
+                              </form>           
+                          </div>
                         </div>
-                        <div class="details">
-                          <h4>{{ $produto->nome }}</h4>
-                          <span>R$ {{ $produto->valor }}</span>
-                          <div class="carrinho">
-                            <a href=""><i class="fa fa-cart-plus"></i></a>
-                          </div>                
-                        </div>
-                      </div>
-                </div>
-              @endforeach
-              @endif
-                                      
+                  </div>
+                @endforeach
+              @else
+              <h5 align="center">Sem produtos disponiveis</h5>
+              @endif                         
             </div>  
-            <div style="text-align: center;">
-                <ul class="pagination">
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                </ul>              
-              </div>                                                
+            {!! $produtos->links() !!}                                                        
         </div>
     </div>
-    @endsection
+  @endsection

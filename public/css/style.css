@@ -904,6 +904,10 @@ body.mobile-nav-active #mobile-nav-toggle {
   margin-bottom: 10px;
   padding-top: 6px;
 }
+.carrinho button{
+  border: none;
+  background-color: transparent;
+}
 .carrinho a{
   color: #fff;
 }

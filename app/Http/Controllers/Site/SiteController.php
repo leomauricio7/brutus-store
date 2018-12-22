@@ -19,16 +19,18 @@ class SiteController extends Controller
     public function __construct()
     {
         $this->middleware('auth')
-            ->only([]);
+            ->only(
+                [
+                'finalizaCompra'
+                ]);
         $this->middleware('auth')
             ->except([
                 'index',
                 'sobre',
                 'contato',
-                'carrinho',
                 'produtos',
                 'showProduto',
-                'finalizaCompra',
+                'categoria',  
             ]);
     }
     
@@ -83,13 +85,6 @@ class SiteController extends Controller
         $title = 'Contato';
         $categorias = Categoria::all();
         return View('site.contato',compact('categorias','title'));
-    }
-
-    public function carrinho ()
-    {
-        $title = "Carrinho";
-        $categorias = Categoria::all();
-        return view('site.carrinho',compact('categorias','title'));
     }
 
     public function finalizaCompra()

@@ -41,9 +41,11 @@
                     <div class="details">
                       <h4>{{ $produto->nome }}</h4>
                       <span>R$ {{ $produto->valor }}</span>
-                      <div class="carrinho">
-                        <a href=""><i class="fa fa-cart-plus"></i></a>
-                      </div>                
+                      <form method="POST" class="carrinho" action="{{ route('carrinho.adicionar') }}">
+                          {{ csrf_field() }}
+                          <input type="hidden" name="id" value="{{ $produto->id }}">
+                          <button type="submit"><i class="fa fa-cart-plus"></i></button>
+                      </form>               
                     </div>
                   </div>
                 </div>

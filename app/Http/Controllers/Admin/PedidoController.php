@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Pedido;
+use Illuminate\Support\Facades\Auth;
 
 class PedidoController extends Controller
 {
@@ -14,7 +16,9 @@ class PedidoController extends Controller
      */
     public function index()
     {
-        return view('admin.pedidos.index');
+        $pedidos = Pedido::all();
+        $title = "Pedidos";
+        return view('admin.pedidos.index',compact('title','pedidos'));
     }
 
     /**

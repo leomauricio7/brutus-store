@@ -70,13 +70,19 @@
                 <p class="product-description">
                   {{ $prod->descricao }}
                 </p>
-                <h4 class="price">Valor: <span>R$ {{ $prod->valor }}</span></h4>
+                <h4 class="price">Valor: <span>R$ {{ number_format($prod->valor, 2, ',', '.') }}</span></h4>
                 <h5 class="sizes">Categoria: {{ $categoria }}
                   <span class="size" data-toggle="tooltip" title="small"></span>
                 </h5>
-                <div class="action">
-                  <a href="{{ route('carrinho') }}"><button class="add-to-cart btn btn-default" type="button"><i class="fa fa-cart-plus"></i> ADICIONAR AO CARRINHO</button></a>
-                </div>
+                
+                <form method="POST" class="action" action="{{ route('carrinho.adicionar') }}">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="id" value="{{ $prod->id }}">
+                    <button class="add-to-cart btn btn-default" type="submit">
+                      <i class="fa fa-cart-plus"></i> ADICIONAR AO CARRINHO
+                    </button>
+                </form>
+                
               </div>
             </div>
 
@@ -131,10 +137,12 @@
                   </div>
                   <div class="details">
                     <h4>{{ $prodRel->nome }}</h4>
-                    <span>R$ {{ $prodRel->valor }}</span>
-                    <div class="carrinho">
-                      <a href=""><i class="fa fa-cart-plus"></i></a>
-                    </div>                
+                    <span>R$ {{ number_format($prodRel->valor, 2, ',', '.') }}</span>
+                    <form method="POST" class="carrinho" action="{{ route('carrinho.adicionar') }}">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="id" value="{{ $prodRel->id }}">
+                        <button type="submit"><i class="fa fa-cart-plus"></i></button>
+                    </form>               
                   </div>
                 </div>
               </div>

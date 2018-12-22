@@ -19,6 +19,7 @@
             <a href="#" class="brand-logo"><img class="responsive-img" src="{{ url('img/logo.png')}}" alt="" width="140"></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a href="{{ route('admin.home') }}"><i class="material-icons left">account_balance</i>Home</a></li>
+                    <li><a href="{{ route('admin.banners') }}"><i class="material-icons left">photo</i>Banners</a></li>
                     <li><a href="{{ route('admin.produtos') }}"><i class="material-icons left">business_center</i>Produtos</a></li>
                     <li><a href="{{ route('admin.pedidos') }}"><i class="material-icons left">add_shopping_cart</i>Pedidos</a></li>
                     <li><a href="{{ route('admin.categorias') }} "><i class="material-icons left">assistant_photo</i>Categorias</a></li>
@@ -42,7 +43,12 @@
                 <i class="large material-icons">account_circle</i>
             </a>
             <ul>
-                <li class="tooltipped" data-position="left" data-tooltip="sair"><a href="{{ route('logout') }}" class="btn-floating red"><i class="material-icons">exit_to_app</i></a></li>
+                <li class="tooltipped" data-position="left" data-tooltip="sair">
+                    <a href="{{ url('/logout') }}" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();" class="btn-floating red"><i class="material-icons">exit_to_app</i>
+                    </a>
+                </li>
+    
                 <li class="tooltipped" data-position="left" data-tooltip="recarregar"><a href="{{ route('admin.home') }}"class="btn-floating yellow darken-1"><i class="material-icons">cached</i></a></li>
             </ul>
         </div>
@@ -98,5 +104,10 @@
                 });
             });
         </script>
+        @if(!Auth::guest())
+            <form id="logout-form" action="{{ url('/logout') }}" method="POST" class="hide">
+                {{ csrf_field() }}
+            </form>
+        @endif
     </body>
   </html>

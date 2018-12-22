@@ -74,6 +74,11 @@
   ============================-->
   @include('site.template.footer')
 
+  @if(!Auth::guest())
+    <form id="logout-form" action="{{ url('/logout') }}" method="POST" class="hide">
+        {{ csrf_field() }}
+    </form>
+  @endif
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
   <!-- JavaScript Libraries -->
@@ -88,6 +93,8 @@
   <script src="{{ url('lib/owlcarousel/owl.carousel.min.js') }}"></script>
   <script src="{{ url('lib/magnific-popup/magnific-popup.min.js') }}"></script>
   <script src="{{ url('lib/sticky/sticky.js') }}"></script>
+
+  @stack('scripts')
   <!-- Uncomment below if you want to use dynamic Google Maps -->
   <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8HeI8o-c1NppZA-92oYlXakhDPYR7XMY"></script> -->
 

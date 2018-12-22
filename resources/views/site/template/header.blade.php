@@ -1,13 +1,13 @@
 <section id="topbar" class="d-none d-lg-block">
     <div class="container clearfix">
         <div class="row">
-          <div class="col-lg-6 col-md-6">
+          <div class="col-lg-4 col-md-6">
             <div class="contact-info float-left">
               <i class="fa fa-envelope-o"></i> <a href="mailto:contact@example.com">contato@brutusstore.com.br</a>
               <i class="fa fa-phone"></i> +55 (084) 99777-7777
             </div>
           </div> 
-          <div class="col-lg-3 col-md-6">
+          <div class="col-lg-4 col-md-6">
               <form>
                 <div class="input-group">
                   <input type="text" class="form-control" placeholder="Pesquisa produto...">
@@ -19,10 +19,19 @@
                 </div>
               </form>
           </div> 
-          <div class="col-lg-3 col-md-6">
-            <div class="social-links float-right">   
-              <a href="{{ route('login') }}" class="twitter"><i class="fa fa-arrow-right"></i> Entrar</a>
-              <a href="{{ route('carrinho') }}" class="facebook"><i class="fa fa-shopping-cart"></i> Carrinho</a>
+          <div class="col-lg-4 col-md-6">
+            <div class="social-links float-right">  
+              @if(!isset(Auth::user()->name))
+                <a href="{{ route('login') }}" class="twitter"><i class="fa fa-arrow-right"></i> Entrar</a>
+              @endif 
+                <a href="{{ route('carrinho') }}" class="facebook"><i class="fa fa-shopping-cart"></i> Carrinho</a>
+              @if(isset(Auth::user()->name))
+                <a><i class="fa fa-user"></i> {{ Auth::user()->name }}</a>
+                <a href="{{ url('/logout') }}" onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();" ><i class="fa fa-sign-out"></i> Sair
+                </a>
+              @endif
+
             </div>
           </div>                               
         </div>        

@@ -1,5 +1,5 @@
 @extends('admin.templates.template')
-
+@section('title',$title)
 @section('content')
 <blockquote>
     <h5>
@@ -19,13 +19,15 @@
     </thead>
 
     <tbody>
-        <tr>
-        <td>Alvin</td>
-        <td>Eclair</td>
-        <td>$0.87</td>
-        <td>$0.87</td>
-        <td>$0.87</td>
-        </tr>
+        @foreach($pedidos as $pedido)      
+            <tr>
+                <td>Alvin</td>
+                <td>Eclair</td>
+                <td>$0.87</td>
+                <td>$0.87</td>
+                <td>$0.87</td>
+            </tr>
+        @endforeach
     </tbody>
     </table>
 @endsection

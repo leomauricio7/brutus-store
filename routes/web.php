@@ -8,7 +8,14 @@ Route::group(['namespace' => 'Site'], function(){
     Route::get('/produto/{slug}', 'SiteController@showProduto')->name('show.produto');
     Route::get('/sobre', 'SiteController@sobre')->name('sobre');
     Route::get('/contato', 'SiteController@contato')->name('contato');
-    Route::get('/carrinho', 'SiteController@carrinho')->name('carrinho');
+    //carrinho de compras
+    Route::get('/carrinho', 'CarrinhoController@index')->name('carrinho');
+    Route::get('/carrinho/adicionar', function(){
+        return redirect()->route('home');
+    });
+    Route::post('/carrinho/adicionar', 'CarrinhoController@adicionar')->name('carrinho.adicionar');
+    Route::delete('/carrinho/remover', 'CarrinhoController@remover')->name('carrinho.remover');
+    //rota de finalizar compra
     Route::get('/finaliza-compra', 'SiteController@finalizaCompra')->name('finaliza.compra');
     Route::get('/produtos/categoria/{categoria?}', 'SiteController@categoria')->name('produtos.categoria');
     Route::get('/', function(){return redirect()->route('home');});
@@ -17,6 +24,13 @@ Route::group(['namespace' => 'Site'], function(){
 Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware'=>'auth'], function(){
     //home
     Route::get('/', 'AdminController@index')->name('admin.home');
+    //banners
+    Route::get('/banners', 'BannerController@index')->name('admin.banners');
+    Route::get('/banners/create', 'BannerController@create')->name('admin.banners.create');
+    Route::post('/banners/create', 'BannerController@store')->name('admin.banners.store');
+    Route::get('/banners/{id}/edit', 'BannerController@edit')->name('admin.banners.edit');
+    Route::put('/banners/update/{id}', 'BannerController@update')->name('admin.banners.update');
+    Route::get('/banners/delete/{id}', 'BannerController@destroy')->name('admin.banners.destroy');
     //produtos
     Route::get('/produtos', 'ProdutoController@index')->name('admin.produtos');
     Route::get('/produtos/create', 'ProdutoController@create')->name('admin.produtos.create');
