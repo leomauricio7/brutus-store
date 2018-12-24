@@ -35,6 +35,7 @@ class ProdutoFormRequest extends FormRequest
             'image'=>'required',
             'largura'=>'required|max:4',
             'comprimento'=>'required|max:4',
+            'altura'=>'required|max:4',
             'peso'=>'required|max:4',
         ];
     }

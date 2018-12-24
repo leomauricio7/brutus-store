@@ -14,17 +14,7 @@ class CarrinhoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')
-        ->only(
-            [
-            'finalizaCompra','compras'
-            ]);
-        $this->middleware('auth')
-            ->except([
-                'index',
-                'adicionar',
-                'remover', 
-            ]);
+        $this->middleware('auth');
     }
 
     public function index ()

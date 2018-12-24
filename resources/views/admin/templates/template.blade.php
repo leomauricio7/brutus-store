@@ -109,5 +109,20 @@
                 {{ csrf_field() }}
             </form>
         @endif
+        <script src="/js/speakingurl.min.js"></script>
+        <script src="/js/jquery.stringtoslug.min.js"></script>
+        <script type="text/javascript">
+            $('#name').keyup(function(){
+                $('#slug').attr('readonly', true);
+            });
+            $("#name").stringToSlug({
+                setEvents: 'keyup keydown blur',
+                getPut: '#slug',
+                space: '-',
+                replace: /\s?\([^\)]*\)/gi,
+              });
+    
+        </script>
+        @stack('scripts')
     </body>
   </html>

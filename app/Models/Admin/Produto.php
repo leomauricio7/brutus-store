@@ -18,6 +18,7 @@ class Produto extends Model
         'categoria_id',
         'tamanho',
         'largura',
+        'altura',
         'comprimento',
         'peso',
     ];

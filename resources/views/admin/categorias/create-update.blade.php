@@ -22,11 +22,11 @@
     @endif
       <div class="row">
         <div class="input-field col s4">
-          {!! Form::text('nome', null, ['class' => 'validate', 'placeholder' => 'Nome']) !!}
+          {!! Form::text('nome', null, ['class' => 'validate', 'placeholder' => 'Nome', 'id'=>'name']) !!}
           {!! Form::label('nome', 'Nome') !!}
         </div>
         <div class="input-field col s4">
-          {!! Form::text('slug', null, ['class' => 'validate', 'placeholder' => 'Slug']) !!}
+          {!! Form::text('slug', null, ['class' => 'validate', 'placeholder' => 'Slug', 'id'=>'slug']) !!}
           {!! Form::label('slug', 'Slug') !!}
         </div>
         <div class="input-field file-field col s4">

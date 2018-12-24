@@ -22,7 +22,7 @@
     @endif
       <div class="row">
         <div class="input-field col s4">
-          {!! Form::text('nome', null, ['class'=>'validate', 'placeholder'=>'Nome']) !!}
+          {!! Form::text('nome', null, ['class'=>'validate', 'placeholder'=>'Nome','id'=>'name']) !!}
           {!! Form::label('nome', 'Nome') !!}
         </div>
         <div class="input-field col s4">
@@ -30,7 +30,7 @@
             {!! Form::label('preco', 'Preço') !!}
         </div>
         <div class="input-field col s4">
-            {!! Form::text('slug', null, ['class' => 'validate', 'placeholder' => 'Slug']) !!}
+            {!! Form::text('slug', null, ['class' => 'validate', 'placeholder' => 'Slug','id'=>'slug']) !!}
             {!! Form::label('slug', 'Slug') !!}
         </div>
       </div>
@@ -50,15 +50,19 @@
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s4">
+        <div class="input-field col s3">
             {!! Form::text('peso', null, ['class'=>'validate', 'placeholder'=>'Peso (Opcional)']) !!}
             {!! Form::label('peso', 'Peso') !!}
         </div>
-        <div class="input-field col s4">
+        <div class="input-field col s3">
             {!! Form::text('largura', null, ['class'=>'validate', 'placeholder'=>'Largura (Opcional)']) !!}
-            {!! Form::label('largura', 'Largura') !!}
+            {!! Form::label('largura', 'Altura') !!}
         </div>
-        <div class="input-field col s4">
+        <div class="input-field col s3">
+            {!! Form::text('altura', null, ['class'=>'validate', 'placeholder'=>'Altura (Opcional)']) !!}
+            {!! Form::label('altura', 'Largura') !!}
+        </div>
+        <div class="input-field col s3">
             {!! Form::text('comprimento', null, ['class'=>'validate', 'placeholder'=>'Comprimento (Opcional)']) !!}
             {!! Form::label('comprimento', 'Comprimento') !!}
         </div>
