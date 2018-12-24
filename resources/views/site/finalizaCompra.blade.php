@@ -130,73 +130,17 @@
       </div>
   </div>  
   <div class="row">
-    <div class="col-lg-4 col-md-6">
-        
+    <div class="col-lg-4 col-md-6">  
     </div>    
     <div class="col-lg-4 col-md-6" style="text-align: center;">
-
-
-
     </div> 
-    <div class="col-lg-4 col-md-6">
-        
+    <div class="col-lg-4 col-md-6">  
     </div>          
   </div>
 
   <div class="container">
     <!-- Uncomment below if you wan to use dynamic maps -->
     <!--<div id="google-map" data-latitude="40.713732" data-longitude="-74.0092704"></div>-->
-  </div>/*
-  <p>Preencha os campos abaixo para finalizar sua compra.</p>  
-  <div class="col-lg-6 col-md-6">
-
-    <div class="form-group">
-      <label for="usr">Nome Completo:</label>
-      <input type="text" class="form-control" id="usr">
-    </div>
-    <div class="form-group">
-      <label for="pwd">CEP:</label>
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Informe o CEP">
-        <div class="input-group-btn">
-          <button class="btn btn-default" type="submit">
-            <i class="fa fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </div>   
-    <div class="form-group">
-      <label for="pwd">Endereço:</label>
-      <input type="text" class="form-control" id="pwd">
-    </div>  
-    <div class="form-group">
-      <label for="pwd">Bairro:</label>
-      <input type="text" class="form-control" id="pwd">
-    </div>  
-    <div class="form-group">
-      <label for="pwd">Complemento:</label>
-      <input type="text" class="form-control" id="pwd">
-    </div>  
-    <div class="form-group">
-      <label for="pwd">Cidade:</label>
-      <input type="text" class="form-control" id="pwd">
-    </div>   
-    <div class="form-group">
-      <label for="pwd">Estado:</label>
-      <input type="text" class="form-control" id="pwd">
-    </div>    
-    <div class="form-group">
-      <label for="pwd">Telefone:</label>
-      <input type="text" class="form-control" id="pwd">
-    </div>   
-    <div class="form-group">
-      <label for="pwd">E-mail:</label>
-      <input type="text" class="form-control" id="pwd">
-    </div>                                                                               
-    <div class="form-group">
-      <label for="comment">Informações complementares sobre o pedido:</label>
-      <textarea class="form-control" rows="5" id="comment"></textarea>
-    </div>
-  </div>     
-</section><!-- #contact -->*/
+  </div> 
+</section>
 @endsection

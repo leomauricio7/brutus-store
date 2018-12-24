@@ -21,6 +21,7 @@ class CreateProdutosTable extends Migration
             $table->decimal('valor', 5, 2)->default(0);
             $table->decimal('peso', 5, 2)->default(0);
             $table->decimal('largura', 5, 2)->default(0);
+            $table->decimal('altura', 5, 2)->default(0);
             $table->decimal('comprimento', 5, 2)->default(0);
             $table->string('image');
             $table->enum('tamanho', ['P','M', 'G','GG','ND'])->default('ND');

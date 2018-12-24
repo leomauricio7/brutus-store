@@ -82,10 +82,13 @@
             </tr>
             <tr>
               <td>
-              @if (Route::has('password.request'))
+                @if (Route::has('password.request'))
                     <a href="{{ route('password.request') }}">
                        Esqueceu sua senha?
-                    </a>
+                    </a><br>
+                    <a href="{{ route('register') }}">
+                      Cadastre-se aqui!
+                   </a>
                 @endif    
               </td>
             </tr>
