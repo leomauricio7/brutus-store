@@ -161,15 +161,16 @@ class CarrinhoController extends Controller
         PedidoProduto::where([
             'pedido_id' => $idpedido
             ])->update([
-                'status' => 'PA'
+                'status' => 'AP'
             ]);
         Pedido::where([
                 'id' => $idpedido
             ])->update([
-                'status' => 'PA'
+                'status' => 'AP',
+                'valor_pedido'=> $valor,
             ]);
-
-        $req->session()->flash('mensagem-sucesso', 'Compra finalizada com sucesso!');
+        
+        $req->session()->flash('mensagem-sucesso', 'Pedido finalizado com sucesso!');
 
         return redirect()->route('carrinho.compras');
     }
@@ -178,7 +179,7 @@ class CarrinhoController extends Controller
     {
 
         $compras = Pedido::where([
-            'status'  => 'PA',
+            'status'  => 'AP',
             'user_id' => Auth::id()
             ])->orderBy('created_at', 'desc')->get();
 
@@ -196,6 +197,14 @@ class CarrinhoController extends Controller
         $cepDestino = $req->input('cep');
         $valor = $req->input('valor');
         $tipoFrete = $req->input('tipo_frete');
+        $idpedido = $req->input('pedido_id');
+
+        Pedido::where([
+            'id' => $idpedido
+        ])->update([
+            'id_frete'=> $tipoFrete,
+        ]);
+
         $data = [
             'nCdEmpresa'=> '',
             'sDsSenha'=> '',

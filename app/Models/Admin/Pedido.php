@@ -8,7 +8,9 @@ class Pedido extends Model
 {
     protected $fillable = [
         'user_id',
-        'status'
+        'status',
+        'valor_pedido',
+        'id_frete',
     ];
 
     public function pedido_produtos()

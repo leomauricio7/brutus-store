@@ -64,32 +64,27 @@
                 <td>
                     @foreach($compra->pedido_produtos as $pedido_produto)
                     {{ $pedido_produto->produto->nome }} <img src="{{ url("storage/produtos/{$pedido_produto->produto->image}") }}" width="50px" /> x <strong>{{ $pedido_produto->qtd }}</strong> Unidade
-                    <br/>  
+                    <br/>
+                    @php
+                    $total_produto = ($pedido_produto->produto->valor * $pedido_produto->qtd) - $pedido_produto->descontos;
+                    $total_pedido += $total_produto;
+                    @endphp  
                   @endforeach              
                 </td>
               </tr>
               <tr>
                 <td><strong>Subtotal</strong></td>
-                @php
-                $total_produto = ($pedido_produto->produto->valor * $pedido_produto->qtd) - $pedido_produto->descontos;
-                $total_pedido += $total_produto;
-                @endphp
                 <td>R$ {{ number_format( $total_pedido, 2, ',', '.') }}</td>
               </tr>              
               <tr>
-                <td><strong>Entrega</strong></td>
-                <td>
-                  <div class="radio">
-                    <label><input type="radio" name="optradio1" checked>PAC: R$18,80 - Entrega em 5 dias úteis</label>
-                  </div>
-                  <div class="radio">
-                    <label><input type="radio" name="optradio2">SEDEX: R$20,21 - Entrega em 1 dia útil</label>
-                  </div>                  
+                <td><strong>Frete</strong></td>
+                <td> 
+                  {{ $compra->id_frete == '41106' ? 'PAC': 'SEDEX' }} - R$ {{ number_format( $compra->valor_pedido - $total_pedido, 2, ',', '.') }}                
                 </td>
               </tr>
               <tr style="background-color: #e8e8e8">
                 <td><strong>Total</strong></td>
-                <td>R$ 180,00</td>
+                <td>R$ {{ number_format( $compra->valor_pedido, 2, ',', '.') }}</td>
               </tr>
             </tbody>  
           </table>   
@@ -117,11 +112,10 @@
               </td>
             </tr>  
           </table> 
-            <a href="./index?p=finalizar-compras">  
+            
             <button class="btn btn-default-search-top btn-block" type="submit" style="font-weight: bold;">
-              FINALIZAR PEDIDO
+              FINALIZAR COMPRA
             </button> 
-            </a>                             
         </div>                        
       </div>
   </div>  
@@ -133,8 +127,10 @@
     <div class="col-lg-4 col-md-6">  
     </div>          
   </div>
-
-  <div class="container">
+  @push('scripts')
+    <script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>
+  @endpush
+<div class="container">
     <!-- Uncomment below if you wan to use dynamic maps -->
     <!--<div id="google-map" data-latitude="40.713732" data-longitude="-74.0092704"></div>-->
   </div> 

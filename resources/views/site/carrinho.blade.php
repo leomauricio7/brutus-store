@@ -128,6 +128,7 @@
                   <form method="POST" action="{{ route('calcula.frete') }}" id="form-frete">
                       {{ csrf_field() }}
                       <input type="hidden" name="valor" value="{{ number_format($total_pedido, 2, ',', '.') }}">
+                      <input type="hidden" name="pedido_id" value="{{ $pedido->id }}">
                       <div class="form-group">
                           <input type="radio" name="tipo_frete" value="41106" required>PAC
                           <input type="radio" name="tipo_frete" value="40010" required>SEDEX
@@ -161,9 +162,9 @@
         <form method="POST" action="{{ route('finaliza.compra') }}">
             {{ csrf_field() }}
             <input type="hidden" name="pedido_id" value="{{ $pedido->id }}">
-            <input type="hidden" name="valor_total" value="{{ number_format($total_geral, 2, ',', '.') }}">
+            <input type="hidden" name="valor_total" value="{{ $total_geral }}">
             <button class="btn btn-default-search-top" type="submit" style="font-weight: bold;">
-                FINALIZAR A COMPRA
+                FINALIZAR PEDIDO
               </button>  
         </form>
              
