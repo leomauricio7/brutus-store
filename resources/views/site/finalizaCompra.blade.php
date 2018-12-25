@@ -87,7 +87,46 @@
                 <td>R$ {{ number_format( $compra->valor_pedido, 2, ',', '.') }}</td>
               </tr>
             </tbody>  
-          </table>   
+          </table>
+          
+          @push('scripts')
+          <script src="/js/zepto.js"></script>
+          <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>
+          <script>
+              var Root="http://"+document.location.hostname+"/";
+      
+              $('#BotaoPagamento').on('click',function(event){
+                  event.preventDefault();
+              
+                  $.ajax({
+                      url: Root+"carrinho/pagamento",
+                      type: 'POST',
+                      dataType:'html',
+                      data: { 
+                        _token:'{{ csrf_token() }}',
+                        valor:'{{ $compra->valor_pedido }}',
+                        cep:{{ Auth::user()->cep }},
+                        n:{{ Auth::user()->numero }},
+                        rua:'{{ Auth::user()->rua }}',
+                        bairro:'{{ Auth::user()->bairro }}',
+                        cidade:'{{ Auth::user()->cidade }}',
+                        uf:'{{ Auth::user()->uf }}',
+                        complemento:'{{ Auth::user()->complemento }}',
+                        telefone:'{{ Auth::user()->telefone }}',
+                        email:'{{ Auth::user()->email }}',
+                        },
+                      success:function(response){
+                          console.log(response)
+                          PagSeguroLightbox(response);
+                      },
+                      error: function (data, textStatus, errorThrown) {
+                          console.log(data);
+                      },
+                  });
+              });
+          </script> 
+          @endpush
+
           @empty
              <p>Pédido inválido</p> 
           @endforelse
@@ -112,10 +151,11 @@
               </td>
             </tr>  
           </table> 
-            
-            <button class="btn btn-default-search-top btn-block" type="submit" style="font-weight: bold;">
-              FINALIZAR COMPRA
-            </button> 
+          <div class="text-center">
+            <form name="FormPagamento" id="FormPagamento" action="https://sandbox.pagseguro.uol.com.br/v2/checkout/payment.html" method="post">
+              <input id="BotaoPagamento" type="image" src="https://stc.pagseguro.uol.com.br/public/img/botoes/pagamentos/209x48-pagar-azul-assina.gif" name="submit" alt="Pague com PagSeguro - é rápido, grátis e seguro!" />
+            </form>
+          </div>
         </div>                        
       </div>
   </div>  
@@ -127,9 +167,7 @@
     <div class="col-lg-4 col-md-6">  
     </div>          
   </div>
-  @push('scripts')
-    <script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>
-  @endpush
+
 <div class="container">
     <!-- Uncomment below if you wan to use dynamic maps -->
     <!--<div id="google-map" data-latitude="40.713732" data-longitude="-74.0092704"></div>-->

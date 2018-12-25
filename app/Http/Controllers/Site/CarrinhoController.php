@@ -177,7 +177,7 @@ class CarrinhoController extends Controller
 
     public function compras()
     {
-
+        $categorias = Categoria::all();
         $compras = Pedido::where([
             'status'  => 'AP',
             'user_id' => Auth::id()
@@ -188,7 +188,7 @@ class CarrinhoController extends Controller
             'user_id' => Auth::id()
             ])->orderBy('updated_at', 'desc')->get();
 
-        return view('site.finalizaCompra', compact('compras', 'cancelados'));
+        return view('site.finalizaCompra', compact('compras', 'cancelados', 'categorias'));
 
     }
     
@@ -244,5 +244,54 @@ class CarrinhoController extends Controller
 
         return view('site.carrinho',compact('categorias','produtos','pedidos','frete'));
     }  
+
+    public function pagSeguro(Request $req){
+
+        $Data = [
+            "email"=>"brutusbrasil@outlook.com",
+            "token"=>"D6D57BC4E25E4D4687D24BFFEE7B2CC9",//PROD->D304B3144BC74FDC9B9069C72DA33E52
+            "currency"=>"BRL",
+            "itemId1"=>"1",
+            "itemDescription1"=>"Loja BrutusStore",
+            "itemAmount1"=>$req->input('valor'),
+            "itemQuantity1"=>"1",
+            "itemWeight1"=>"1000",
+            "reference"=>"83783783737",
+            "senderName"=>'Loja Brutus Store',
+            "senderAreaCode"=>"84",
+            "senderPhone"=>$req->input('telefone'),
+            "senderEmail"=>"v89864271047003043906@sandbox.pagseguro.com.br",
+            "shippingType"=>"1",
+            "shippingAddressStreet"=>$req->input('rua'),
+            "shippingAddressNumber"=>$req->input('n'),
+            "shippingAddressComplement"=>$req->input('complemento'),
+            "shippingAddressDistrict"=>$req->input('bairro'),
+            "shippingAddressPostalCode"=>$req->input('cep'),
+            "shippingAddressCity"=>$req->input('cidade'),
+            "shippingAddressState"=>$req->input('uf'),
+            "shippingAddressCountry"=>"BRA"
+        ];
+
+        
+        $BuildQuery=http_build_query($Data);
+        //produção -> retirar o nome sandbox da url
+        //produção -> trocar o token
+        $Url="https://ws.sandbox.pagseguro.uol.com.br/v2/checkout";
+        
+        $Curl=curl_init($Url);
+
+        curl_setopt($Curl,CURLOPT_HTTPHEADER,Array("Content-Type: application/x-www-form-urlencoded; charset=UTF-8"));
+        curl_setopt($Curl,CURLOPT_POST, true);
+        curl_setopt($Curl,CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($Curl,CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($Curl,CURLOPT_POSTFIELDS, $BuildQuery);
+        $Retorno=curl_exec($Curl);
+        curl_close($Curl);
+        
+        $Xml=simplexml_load_string($Retorno);
+
+        echo $Xml->code;
+        
+    }
 
 }

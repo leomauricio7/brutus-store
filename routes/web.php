@@ -17,6 +17,8 @@ Route::group(['namespace' => 'Site'], function(){
     });
     //calcula frete
     Route::post('/calcula-frete','CarrinhoController@calculaFrete')->name('calcula.frete');
+    Route::post('/carrinho/pagamento','CarrinhoController@pagSeguro')->name('pagseguro');
+
 
     Route::post('/carrinho/adicionar', 'CarrinhoController@adicionar')->name('carrinho.adicionar');
     Route::delete('/carrinho/remover', 'CarrinhoController@remover')->name('carrinho.remover');

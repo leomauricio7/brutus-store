@@ -55,7 +55,7 @@
         <ul class="nav-menu">
           <li class="menu-active"><a href="{{ route('home') }}"><i class="fa fa-home"></i> Início</a></li>
           @if(isset(Auth::user()->name))
-            <li><a href=""><i class="fa fa-archive"></i> Minhas Compras</a></li> 
+            <li><a href="{{ route('carrinho.compras') }}"><i class="fa fa-archive"></i> Minhas Compras</a></li> 
           @endif
           @if(!isset(Auth::user()->name))
             <li><a href="{{route('sobre')}}"><i class="fa fa-help"></i> Sobre a Empresa</a></li>
