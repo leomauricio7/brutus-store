@@ -15,6 +15,9 @@ Route::group(['namespace' => 'Site'], function(){
     Route::get('/carrinho/adicionar', function(){
         return redirect()->route('home');
     });
+    //calcula frete
+    Route::post('/calcula-frete','CarrinhoController@calculaFrete')->name('calcula.frete');
+
     Route::post('/carrinho/adicionar', 'CarrinhoController@adicionar')->name('carrinho.adicionar');
     Route::delete('/carrinho/remover', 'CarrinhoController@remover')->name('carrinho.remover');
     //rota de finalizar compra

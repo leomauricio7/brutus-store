@@ -87,10 +87,6 @@
                   </div>                  
                 </td>
               </tr>
-              <tr>
-                  <td><strong>Entrega</strong></td>
-                  <td><a href="#"><i class="fa fa-car"></i> Calcular Entrega</a></td>
-              </tr>
               <tr style="background-color: #e8e8e8">
                 <td><strong>Total</strong></td>
                 <td>R$ 180,00</td>

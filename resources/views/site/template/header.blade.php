@@ -48,18 +48,21 @@
     <div class="container">
 
       <div id="logo" class="pull-left">
-        <!--<h1><a href="#body" class="scrollto">Brutus<span>Store</span></a></h1>-->
-        <!-- Uncomment below if you prefer to use an image logo -->
         <a href="{{ route('home') }}"><img src="{{ url('img/logo.png') }}" alt="" title="" /></a>
       </div>
 
       <nav id="nav-menu-container">
         <ul class="nav-menu">
-          <li class="menu-active"><a href="{{ route('home') }}">Início</a></li>
-          <li><a href="{{route('sobre')}}">Sobre a Empresa</a></li>        
+          <li class="menu-active"><a href="{{ route('home') }}"><i class="fa fa-home"></i> Início</a></li>
+          @if(isset(Auth::user()->name))
+            <li><a href=""><i class="fa fa-archive"></i> Minhas Compras</a></li> 
+          @endif
+          @if(!isset(Auth::user()->name))
+            <li><a href="{{route('sobre')}}"><i class="fa fa-help"></i> Sobre a Empresa</a></li>
+          @endif      
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-              Produtos
+                <i class="fa fa-cart-plus"></i> Produtos
             </a>
             <ul class="dropdown-menu">
               @if(isset($categorias))
@@ -81,7 +84,7 @@
             </ul>
           </li>  
           <li><a href="{{ route('produtos') }}"><i class="fa fa-shopping-bag"></i> Promoções</a></li>                  
-          <li><a href="{{ route('contato') }}">Contato</a></li>                             
+          <li><a href="{{ route('contato') }}"><i class="fa fa-address-book"></i> Contato</a></li>                             
         </ul>             
       </nav><!-- #nav-menu-container -->            
     </div>        

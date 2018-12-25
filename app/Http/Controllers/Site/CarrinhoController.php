@@ -135,7 +135,8 @@ class CarrinhoController extends Controller
         $this->middleware('VerifyCsrfToken');
 
         $req = Request();
-        $idpedido  = $req->input('pedido_id');
+        $idpedido = $req->input('pedido_id');
+        $valor = $req->input('valor_total');
         $idusuario = Auth::id();
 
         $check_pedido = Pedido::where([
@@ -189,7 +190,50 @@ class CarrinhoController extends Controller
         return view('site.finalizaCompra', compact('compras', 'cancelados'));
 
     }
-
     
+    public function calculaFrete(Request $req){
+        $cepOrigem = '59570000';
+        $cepDestino = $req->input('cep');
+        $valor = $req->input('valor');
+        $tipoFrete = $req->input('tipo_frete');
+        $data = [
+            'nCdEmpresa'=> '',
+            'sDsSenha'=> '',
+            'nCdServico'=> $tipoFrete,
+            'sCepOrigem'=> $cepOrigem,
+            'sCepDestino'=> $cepDestino,
+            'nVlPeso'=> '1',
+            'nCdFormato'=> '1',
+            'nVlComprimento'=> '16',
+            'nVlAltura'=> '5',
+            'nVlLargura'=> '15',
+            'nVlDiametro'=> '0',
+            'sCdMaoPropria'=> 's',
+            'nVlValorDeclarado'=> $valor,
+            'sCdAvisoRecebimento' => 'n',
+            'StrRetorno' => 'xml',
+        ];
+
+        $data = http_build_query($data);
+
+        $url = 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx';
+
+        $curl = curl_init($url . '?' . $data);
+
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+        $result = curl_exec($curl);
+        $result = simplexml_load_string($result);
+        $frete = $result->cServico;
+
+        $categorias = Categoria::all();
+        $produtos = Produto::all();
+        $pedidos = Pedido::where([
+            'status'  => 'RE',
+            'user_id' => Auth::id()
+            ])->get();
+
+        return view('site.carrinho',compact('categorias','produtos','pedidos','frete'));
+    }  
 
 }

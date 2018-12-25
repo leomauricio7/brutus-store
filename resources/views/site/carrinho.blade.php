@@ -63,6 +63,7 @@
             <tbody>
               @php
                   $total_pedido = 0;
+                  $total_geral = 0;
               @endphp
               @foreach($pedido->pedido_produtos as $pedido_produto)
               <tr>
@@ -80,6 +81,7 @@
                 @php
                   $total_produto = ($pedido_produto->produto->valor * $pedido_produto->qtd) - $pedido_produto->descontos;
                   $total_pedido += $total_produto;
+                  $total_geral += $total_pedido;
                 @endphp
                <td>R$ {{ number_format($total_produto, 2, ',', '.') }}</td>
               </tr>
@@ -119,8 +121,39 @@
               <td>R$ {{ number_format($total_pedido, 2, ',', '.') }}</td>
             </tr>
             <tr>
+                <td><strong>Frete</strong></td>
+                <td>
+                  <a id="frete" style="cursor: pointer;"><i class="fa fa-car"></i> Calcular Frete</a>
+
+                  <form method="POST" action="{{ route('calcula.frete') }}" id="form-frete">
+                      {{ csrf_field() }}
+                      <input type="hidden" name="valor" value="{{ number_format($total_pedido, 2, ',', '.') }}">
+                      <div class="form-group">
+                          <input type="radio" name="tipo_frete" value="41106" required>PAC
+                          <input type="radio" name="tipo_frete" value="40010" required>SEDEX
+                      </div>
+                      <div class="input-group input-group-sm">
+                      <input type="text" name="cep" placeholder="informe um cep" class="form-control" aria-describedby="sizing-addon3" required autofocus>
+                      <span class="input-group-btn">
+                          <button class="btn btn-default-search-top btn-sm" type="submit">calcular</button>
+                        </span>
+                    </div>
+                  </form>
+
+                </td>
+            </tr>
+            @if(isset($frete))
+            <tr>
+              @php
+                $total_geral = $total_pedido + $frete->Valor;
+              @endphp
+              <td><strong>Entrega</strong></td>
+              <td>Frete: <strong>R$ {{ $frete->Valor }}</strong> <br> Entrega em <strong> {{ $frete->PrazoEntrega }} dias uteis.</strong></td>
+            </tr>
+            @endif
+            <tr>
               <td><strong>Total</strong></td>
-              <td>R$ {{ number_format($total_pedido, 2, ',', '.') }}</td>
+              <td>R$ {{ number_format($total_geral, 2, ',', '.') }}</td>
             </tr>
           </tbody>  
         </table> 
@@ -128,6 +161,7 @@
         <form method="POST" action="{{ route('finaliza.compra') }}">
             {{ csrf_field() }}
             <input type="hidden" name="pedido_id" value="{{ $pedido->id }}">
+            <input type="hidden" name="valor_total" value="{{ number_format($total_geral, 2, ',', '.') }}">
             <button class="btn btn-default-search-top" type="submit" style="font-weight: bold;">
                 FINALIZAR A COMPRA
               </button>  
@@ -157,6 +191,15 @@
 
   @push('scripts')
     <script type="text/javascript" src="/js/carrinho.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('#form-frete').hide();
+        $('#frete').click(function(){
+          $('#form-frete').show('slow');
+          $('#frete').hide();
+        });
+      })
+    </script>
   @endpush
 
 @endsection
